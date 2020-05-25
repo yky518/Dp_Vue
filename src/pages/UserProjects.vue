@@ -23,7 +23,7 @@
           <el-table-column align="center" prop="authors" label="Authors" min-width="11%"></el-table-column>
           <el-table-column align="center" prop="keywords" label="Keywords" min-width="11%"></el-table-column>
           <el-table-column align="center" prop="models" label="Model" min-width="10.5%"></el-table-column>
-          <el-table-column align="center" label="Raw Data" min-width="11%">
+          <el-table-column align="center" label="Raw Data" min-width="12%">
             <template slot-scope="scope">
 <!--              <el-button round v-if="scope.row.data" size="mini" type="primary" @click.stop="download(scope.row.data)">
 &lt;!&ndash;                <img src="../assets/images/下载.png" class="icon-img">&ndash;&gt;
@@ -40,7 +40,7 @@
           </el-table-column>
           <el-table-column align="center" prop="downloads" label="Downloads" min-width="11%"></el-table-column>
           <el-table-column align="center" prop="update_time" label="Updated Time" :formatter="formatter"  min-width="15.5%"></el-table-column>
-          <el-table-column align="center" label="Edit" min-width="8%">
+          <el-table-column align="center" label="Edit" min-width="7%">
             <template v-slot="scope">
               <el-button type="text" style="color: #33327e;" size="small" @click="handleEdit(scope.$index, scope.row)">
                 <img src="../assets/images/编辑.png" class="icon-img">

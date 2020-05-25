@@ -7,33 +7,32 @@
       <el-form :model="searchForm" ref="searchForm" :inline="true" size="mini" class="search-form">
         <el-row type="flex" justify="space-between">
           <el-col :span="5">
-            <el-form-item>
+            <el-form-item prop="element_selected">
               <el-select multiple filterable placeholder="Choose element..." v-model="searchForm.element_selected"  class="form-item" :popper-append-to-body="false">
                 <el-option v-for="(element, index) in distinct_elements" :key="'elements' + index" :label="element.elements" :value="element.elements"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="5">
-            <el-form-item>
-              <el-select  name="models" placeholder="Model version" v-model="searchForm.model_selected"  class="form-item" :popper-append-to-body="false">
+            <el-form-item prop="model_selected">
+              <el-select clearable name="models" placeholder="Model version" v-model="searchForm.model_selected"  class="form-item" :popper-append-to-body="false">
                 <el-option v-for="(model, index)  in distinct_models" :value="model.version" :key="'models' + index" :label="model.version"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="5">
-            <el-form-item>
+            <el-form-item prop="authors" >
               <el-input id="author-search" type="text" placeholder="Author: " name="authors" v-model="searchForm.authors" class="form-item"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
-            <el-form-item>
+            <el-form-item prop="keywords">
               <el-input id="keywords-search" type="text"  placeholder="Keywords: " name="keywords" v-model="searchForm.keywords" class="form-item"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="1" style="text-align: right">
-            <el-form-item>
-              <el-button @click="onSubmit" style="background-color:#ffffff;border: 0; "  class="form-item"><i class="el-icon-search"></i></el-button>
-            </el-form-item>
+          <el-col :span="3">
+              <el-button @click="reset" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-close form-icon"></i></el-button>
+              <el-button @click="onSubmit" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-search form-icon"></i></el-button>
           </el-col>
 
 
@@ -182,7 +181,7 @@
         }
       },
       methods: {
-          onSubmit(){
+        onSubmit(){
             let searchQuery = {}
             if(this.searchForm.element_selected){
               searchQuery.elements = ''
@@ -201,11 +200,14 @@
             console.log(searchQuery)
             this.$router.push({ path: '/elements_list', query: searchQuery})
           },
-         toProject(row){
+        reset(){
+          this.$refs["searchForm"].resetFields();
+        },
+        toProject(row){
             console.log(row.project_id)
             let { href } = this.$router.resolve({ path: '/project_details' ,query: { project_id: row.project_id }});
             window.open(href, '_blank')
-         },
+        },
         handleCurrentChange(currentPage){
           let pageQuery = {elements: this.$route.query.elements}
           pageQuery.page = currentPage
@@ -472,5 +474,9 @@
   .center-panel >>> .table-large-cell{
     font-size: 20px;
 
+  }
+
+  .form-icon{
+    font-size: 20px;
   }
 </style>

@@ -25,9 +25,6 @@
                 </el-col>
               </el-row>
 
-<!--              <el-form-item label="Elements">
-                <ElementPicker :formula="project_info.elements" @formchange="infoChange(arguments)"></ElementPicker>
-              </el-form-item>-->
 
               <el-row>
                 <el-col :span="10">
@@ -306,7 +303,7 @@
               <el-row>
                 <el-col :span="22">
                   <el-form-item label="Elements" prop="elements">
-                    <ElementPicker :formula="paper_add.elements" @formchange="paperAddElementChange(arguments)"></ElementPicker>
+                    <ElementPicker ref="elementPicker" :formula="paper_add.elements" @formchange="paperAddElementChange(arguments)"></ElementPicker>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -582,6 +579,14 @@
         },
         changeAvilable(){
           Vue.set(this.project_info, 'available', -1 - this.project_info.available)
+          // this.project_info.elements =  this.elementCheck(this.porjectElementJson)
+          this.axios.post('/v1/user/update_project', this.project_info).then(res=>{
+            console.log(res.data)
+            this.showMessage('Success')
+          }).catch(err=>{
+            console.log(err)
+            this.showMessage('Failure')
+          })
         },
         handleClick(tab, event){
           console.log(tab, event)
@@ -735,6 +740,9 @@
         resetForm(formName) {
           console.log(formName)
           this.$refs[formName].resetFields();
+          if(formName=="paper_add"){
+            this.$refs['elementPicker'].clearElement();
+          }
         },
         fileAdd:function(e,ref, fileType){
 

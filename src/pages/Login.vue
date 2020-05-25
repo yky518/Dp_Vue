@@ -55,15 +55,20 @@
   import Register from "../components/Register";
   import Footer from "../components/Footer";
 
-    export default {
-        name: "Login",
+  export default {
+      name: "Login",
       inject: ['reload'],
       data(){
+        //validation
         var checkName = (rule, value, callback) => {
-          if(value.length < 6 || value.length > 36){
-            callback(new Error('Length between 6 and 36'))
+          var reg = /^[A-Za-z0-9_!@#$%^&]+$/
+          if(!reg.test(value)){
+            callback(new Error('Form of numbers, letters, special characters'))
+          }else if(value.length < 4 || value.length > 36){
+            callback(new Error('Length between 4 and 36'))
+          }else{
+            callback();
           }
-          callback();
         }
         var validatePass = (rule, value, callback) => {
           if(value.length < 6 || value.length > 36){
@@ -78,6 +83,16 @@
           if(value){
             callback();
           }else{
+
+            this.$alert('Check slide verfication' ,'', {
+              confirmButtonText: 'OK',
+              showClose: false,
+              iconClass: "el-icon-circle-close",
+              center: true,
+              customClass: 'success-box',
+              callback: action => {
+              }
+            })
             callback(new Error('Slide Error'));
           }
         };
@@ -116,13 +131,6 @@
           checked: false
         }
       },
-      // mounted(){
-      //     this.axios.get('http://39.98.150.188:5002/dplibrary/user/login').then(res=>{
-      //       console.log(res.data)
-      //     }).catch(err=>{
-      //       console.log(err)
-      //     })
-      // },
       methods: {
           submitForm(formName){
 
@@ -228,6 +236,10 @@
   .success-box {
     border-radius: 15px;
   }
+
+  .icon-right::before{
+    z-index: 0!important;
+  }
 </style>
 
 <style scoped>
@@ -308,6 +320,10 @@
 
   #login-tabs >>> .el-form-item__content{
     font-size: 24px;
+  }
+
+  #login-tabs >>> .el-form-item__error{
+    font-size: 20px;
   }
 
   .form-item{

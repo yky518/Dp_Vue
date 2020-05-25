@@ -59,9 +59,12 @@
           }
         }
         var checkName = (rule, value, callback) => {
-          if(value.length < 6 || value.length > 36){
-            callback(new Error('Length between 6 and 36'))
-          }else {
+          var reg = /^[A-Za-z0-9_!@#$%^&]+$/
+          if(!reg.test(value)){
+            callback(new Error('Form of numbers, letters, special characters'))
+          }else if(value.length < 4 || value.length > 36){
+            callback(new Error('Length between 4 and 36'))
+          }else{
             callback();
           }
         }
@@ -90,6 +93,15 @@
           if(value){
             callback();
           }else{
+            this.$alert('Check slide verfication' ,'', {
+              confirmButtonText: 'OK',
+              showClose: false,
+              iconClass: "el-icon-circle-close",
+              center: true,
+              customClass: 'success-box',
+              callback: action => {
+              }
+            })
             callback(new Error('Slide Error'));
           }
         };
@@ -321,6 +333,10 @@
           .el-input{
             font-size: 22px;
           }
+        }
+
+        >>> .el-form-item__error{
+          font-size: 20px;
         }
         .verification{
           >>> .el-input{

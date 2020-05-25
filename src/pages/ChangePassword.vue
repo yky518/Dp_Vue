@@ -70,6 +70,15 @@
           if(value){
             callback();
           }else{
+            this.$alert('Check slide verfication' ,'', {
+              confirmButtonText: 'OK',
+              showClose: false,
+              iconClass: "el-icon-circle-close",
+              center: true,
+              customClass: 'success-box',
+              callback: action => {
+              }
+            })
             callback(new Error('Slide Error'));
           }
         };
@@ -229,6 +238,10 @@
 
   #change-password >>> .el-form-item__content{
     font-size: 24px;
+  }
+
+  #change-password >>> .el-form-item__error{
+    font-size: 20px;
   }
 
   .button-submit{

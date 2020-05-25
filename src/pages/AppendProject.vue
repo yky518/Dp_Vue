@@ -11,8 +11,8 @@
         <el-form ref="form" :model="form" label-position="left"  label-width="0.80rem" class="form-margin">
           <el-row>
             <el-col :span="22">
-              <el-form-item label="Elements">
-                <ElementPicker id="project-picker" @formchange="infoChange(arguments)"></ElementPicker>
+              <el-form-item label="Elements" prop="elements">
+                <ElementPicker ref="elementPicker" id="project-picker" @formchange="infoChange(arguments)"></ElementPicker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -73,7 +73,7 @@
             formulaString: '',
             form: {
               elements: '',
-              authors: '',
+              authors: this.$store.state.name,
               keywords: '',
               notes: ''
             }
@@ -140,6 +140,8 @@
         },
         reset(formName){
           this.$refs[formName].resetFields();
+          this.$refs['elementPicker'].clearElement();
+
         }
       },
       components:{

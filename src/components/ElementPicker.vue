@@ -2,23 +2,26 @@
   <div id="element-picker">
     <!--formula样式element-->
     <div id="formula" style="font-size:0">
-        <el-input v-model="formulaString"  placeholder="Al3-Cu4" style="width:56%;margin-right:2%;" @input="toJson"></el-input>
-        <el-select v-model="elementAppend" @visible-change="addElement" style="width:20%;margin-right:2%;">
-          <el-option
-            v-for="item in elementsList"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
-        <el-select v-model="numberAppend" @visible-change="addNumber" style="width:20%">
-          <el-option
-            v-for="item in numbersList"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
+      <el-select v-model="elementAppend" clearable @visible-change="addElement" style="width:15%;margin-right:2%;" placeholder="element:">
+        <el-option
+          v-for="item in elementsList"
+          :key="item"
+          :label="item"
+          :value="item">
+        </el-option>
+      </el-select>
+      <el-select v-model="numberAppend" clearable @visible-change="addNumber" style="width:15%;margin-right:2%;" placeholder="number:">
+        <el-option
+          v-for="item in numbersList"
+          :key="item"
+          :label="item"
+          :value="item">
+        </el-option>
+      </el-select>
+
+<!--      @input="toJson"-->
+      <el-input v-model="formulaString"  placeholder="Al3-Cu4" style="width:66%;" clearable disabled></el-input>
+      <i class="el-icon-close element-close" @click="clearElement()"></i>
     </div>
   </div>
 </template>
@@ -87,6 +90,15 @@
             this.$emit('formchange', this.formulaJson, this.formulaString)
           }
         },
+        clearElement(){
+          this.formulaString = ""
+          this.formulaJson = {}
+          this.elementAppend = ''
+          this.numberAppend = ""
+ /*         for(let k of Object.keys(this.formulaJson)){
+            this.$delete(this.formulaJson,k);
+          }*/
+        },
         toJson() {
           let elements = {}
           let formulaSplit = this.formulaString.split('-')
@@ -105,8 +117,14 @@
     }
 </script>
 
-<style>
+<style scoped>
   .el-input,.el-select-dropdown__item{
     font-size: 22px!important;
+  }
+  .element-close{
+    position: relative;
+    font-size: 24px;
+    margin-left: -30px;
+    z-index: 100;
   }
 </style>
