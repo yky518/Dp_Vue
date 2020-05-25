@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+
+</head>
+<body>
+  <div id="app">
+    <fly-table :fields="fields" :goods="goods"></fly-table>
+  </div>
+  <script src="../js/vue.min.js"></script>
+  <script type="text/javascript">
+    Vue.component('FlyTable', {
+      props:{
+        fields:{
+          type: Array,
+          default(){
+            return []
+          }
+        },
+        goods: {
+          type: Array,
+          default(){
+            return []
+          }
+        }
+      },
+      render(createElement){
+        return createElement('div',[
+          createElement('h1', 'Fly Table'),
+          createElement('button', {
+            class: 'btn btn-text',
+            domProps: {
+              innerText: '倒叙数组'
+            },
+            on:{
+              click: () => {
+                this.goods.reverse()
+              }
+            }
+          }),
+          createElement('table', {
+            style: {
+              width: '400px',
+              textAlign: 'left'
+            }
+          },[
+            createElement('tr',[
+              ...(this.fields.map(fieldss => createElement('th', field.label)))
+            ]),
+            ...(this.goods.map(item => createElement('tr', {
+              class:{
+                'mark-value': item.isMarked
+              }
+            },[
+
+            ])))
+          ])
+
+        ])
+      }
+    })
+    let vm = new Vue({
+      el: '#app',
+      data(){
+        return {
+          fields: [
+            'YCY',
+            '超越',
+            '超超越越'
+          ],
+          goods: [
+            '857092',
+            '1151330',
+            '全村的希望'
+          ]
+        }
+      }
+
+    })
+  </script>
+</body>
+</html>
