@@ -114,8 +114,14 @@
               abstract: this.form.abstract
             }
               this.axios.post('/v1/user/insert_project', params).then(res=>{
-                this.showMessage('Success')
-                this.$router.push("user_projects")
+                console.log(res.data.new_id)
+                if(res.data.new_id!=-1){
+                  this.showMessage('Success')
+                  this.$router.push({path: "/project_edit",query:{
+                      project_id: res.data.new_id
+                    }})
+                }
+
               }).catch(err=>{
                 console.log(err)
               })
@@ -134,7 +140,7 @@
             center: true,
             customClass: 'success-box',
             callback: action => {
-              this.$router.push("user_projects")
+              // this.$router.push("user_projects")
             }
           })
         },

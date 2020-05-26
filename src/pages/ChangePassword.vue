@@ -6,13 +6,13 @@
         <h2 style="text-align: center">Change Password</h2>
       </el-row>
       <el-form status-icon :rules="rules" ref="changeForm" :model="changeForm" label-position="left" label-width="1.2rem">
-        <el-form-item label="Old Password" prop="oldPassword" class="form-item">
+        <el-form-item label="Old Password" prop="oldPassword">
           <el-input type="password" v-model="changeForm.oldPassword"></el-input>
         </el-form-item>
-        <el-form-item label="New Password" prop="newPassword" class="form-item">
+        <el-form-item label="New Password" prop="newPassword">
           <el-input type="password" v-model="changeForm.newPassword"></el-input>
         </el-form-item>
-        <el-form-item label="Confirm" prop="checkPass" class="form-item">
+        <el-form-item label="Confirm" prop="checkPass">
           <el-input type="password" v-model="changeForm.checkPass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item  label="Verification" prop="slide" class="verify-row">
@@ -210,6 +210,9 @@
     border-radius: 15px;
   }
 
+  .icon-right::before{
+    z-index: 0!important;
+  }
 </style>
 
 <style scoped>
@@ -244,6 +247,10 @@
     font-size: 20px;
   }
 
+  #change-password>>> .el-form-item{
+    margin: 50px 0;
+  }
+
   .button-submit{
     background-color: #33327e;
     color: #fff;
@@ -255,9 +262,6 @@
   }
   .form-item{
     margin-top: 40px;
-  }
-  .verify-row {
-    margin: 30px 0;
   }
 
   .verify-row >>> .verify-bar-area{

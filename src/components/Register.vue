@@ -1,16 +1,16 @@
 <template>
   <div id="register">
       <el-form status-icon :rules="rules" ref="registerForm" :model="registerForm" label-position="left" label-width="1.00rem">
-      <el-form-item label="Username" prop="name" class="form-item">
+      <el-form-item label="Username" prop="name">
         <el-input v-model="registerForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="Password" prop="password" class="form-item">
+      <el-form-item label="Password" prop="password">
         <el-input type="password" v-model="registerForm.password"></el-input>
       </el-form-item>
-      <el-form-item label="Confirm" prop="checkPass" class="form-item">
+      <el-form-item label="Confirm" prop="checkPass">
         <el-input type="password" v-model="registerForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
-        <el-form-item label="E-mail" prop="email" class="form-item">
+        <el-form-item label="E-mail" prop="email">
           <el-input v-model="registerForm.email" autocomplete="off"></el-input>
         </el-form-item>
       <el-form-item  label="Verification" prop="slide" class="verify-row">
@@ -38,7 +38,7 @@
         var checkName = (rule, value, callback) => {
           var reg = /^[A-Za-z0-9_!@#$%^&]+$/
           if(!reg.test(value)){
-            callback(new Error('Form of numbers, letters, special characters'))
+            callback(new Error('Numbers, letters, special characters'))
           }else if(value.length < 4 || value.length > 36){
             callback(new Error('Length between 4 and 36'))
           }else{
@@ -242,6 +242,10 @@
     font-size: 20px;
   }
 
+  #register>>> .el-form-item{
+    margin: 50px 0;
+  }
+
   .button-submit{
     background-color: #33327e;
     color: #fff;
@@ -253,11 +257,9 @@
   }
 
   .form-item{
-    margin-top: 40px;
+    margin-top: 50px;
   }
-  .verify-row {
-    margin: 30px 0;
-  }
+
   .verify-row >>> .verify-bar-area{
     display: inline-block;
     vertical-align: middle;
@@ -270,4 +272,9 @@
   .agreement-row{
     text-align: center;
   }
+
+  .agreement-row >>> .el-form-item__error{
+    position: static;
+  }
+
 </style>

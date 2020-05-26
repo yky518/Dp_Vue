@@ -7,16 +7,16 @@
           <h2 style="text-align: center">Forget Password</h2>
         </el-row>
         <el-form status-icon :rules="rules" ref="forgetForm" :model="forgetForm" label-position="left" label-width="1.1rem">
-          <el-form-item label="Name" prop="name" class="form-item">
+          <el-form-item label="Name" prop="name">
             <el-input v-model="forgetForm.name" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="New Password" prop="password" class="form-item">
+          <el-form-item label="New Password" prop="password">
             <el-input type="password" v-model="forgetForm.password" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Confirm" prop="checkPass" class="form-item">
+          <el-form-item label="Confirm" prop="checkPass">
             <el-input type="password" v-model="forgetForm.checkPass" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item  label="Verification" prop="slide" class="verify-row">
+          <el-form-item  label="Verification" prop="slide">
             <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'1.82rem',height:'0.24rem'}"></Verify>
           </el-form-item>
           <el-form-item label="Verification" prop="verification" class="verification">
@@ -61,7 +61,7 @@
         var checkName = (rule, value, callback) => {
           var reg = /^[A-Za-z0-9_!@#$%^&]+$/
           if(!reg.test(value)){
-            callback(new Error('Form of numbers, letters, special characters'))
+            callback(new Error('Numbers, letters, special characters'))
           }else if(value.length < 4 || value.length > 36){
             callback(new Error('Length between 4 and 36'))
           }else{
@@ -293,6 +293,10 @@
       font-weight: 500;
     }
   }
+
+  .icon-right::before{
+    z-index: 0!important;
+  }
 </style>
 
 <style scoped lang='scss'>
@@ -308,6 +312,10 @@
         margin: 60px auto;
         background-color: #fff;
         border-radius: 15px;
+
+        >>> .el-form-item{
+          margin: 50px 0;
+        }
 
         >>> .el-form-item__content{
           font-size: 24px;
@@ -376,11 +384,7 @@
           background-color: #e1e1e1;
           color: #fff;
         }
-        .form-item{
-          margin-top: 40px;
-        }
         .verify-row {
-          margin: 30px 0;
           >>> .verify-bar-area{
             display: inline-block;
             vertical-align: middle;

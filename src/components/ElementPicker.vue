@@ -10,17 +10,17 @@
           :value="item">
         </el-option>
       </el-select>
-      <el-select v-model="numberAppend" clearable @visible-change="addNumber" style="width:15%;margin-right:2%;" placeholder="number:">
+<!--      <el-select v-model="numberAppend" clearable @visible-change="addNumber" style="width:15%;margin-right:2%;" placeholder="number:">
         <el-option
           v-for="item in numbersList"
           :key="item"
           :label="item"
           :value="item">
         </el-option>
-      </el-select>
+      </el-select>-->
 
 <!--      @input="toJson"-->
-      <el-input v-model="formulaString"  placeholder="Al3-Cu4" style="width:66%;" clearable disabled></el-input>
+      <el-input v-model="formulaString"  placeholder="Al3-Cu4" style="width:83%;" clearable disabled></el-input>
       <i class="el-icon-close element-close" @click="clearElement()"></i>
     </div>
   </div>

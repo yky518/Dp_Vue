@@ -7,13 +7,13 @@
         <el-tabs type="border-card" id="login-tabs">
           <el-tab-pane label="Login">
             <el-form status-icon :rules="rules" label-position="left" ref="loginForm" :model="loginForm" label-width="1.00rem">
-              <el-form-item label="Username" prop="name" class="form-item">
+              <el-form-item label="Username" prop="name">
                 <el-input v-model="loginForm.name"></el-input>
               </el-form-item>
-              <el-form-item label="Password" prop="password"  class="form-item">
+              <el-form-item label="Password" prop="password">
                 <el-input type="password" v-model="loginForm.password"></el-input>
               </el-form-item>
-              <el-form-item label="Verification" prop="slide" class="verify-row form-item">
+              <el-form-item label="Verification" prop="slide" class="verify-row">
                 <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'1.82rem',height:'0.24rem'}"></Verify>
               </el-form-item>
               <el-form-item prop="checked"  class="agreement-row" label-width="0">
@@ -63,7 +63,7 @@
         var checkName = (rule, value, callback) => {
           var reg = /^[A-Za-z0-9_!@#$%^&]+$/
           if(!reg.test(value)){
-            callback(new Error('Form of numbers, letters, special characters'))
+            callback(new Error('Numbers, letters or special characters'))
           }else if(value.length < 4 || value.length > 36){
             callback(new Error('Length between 4 and 36'))
           }else{
@@ -318,16 +318,16 @@
     background-color: transparent;
   }
 
+  #login-tabs>>> .el-form-item{
+    margin: 50px 0;
+  }
+
   #login-tabs >>> .el-form-item__content{
     font-size: 24px;
   }
 
   #login-tabs >>> .el-form-item__error{
     font-size: 20px;
-  }
-
-  .form-item{
-    margin-top: 40px;
   }
 
   .button-submit{
@@ -339,12 +339,6 @@
     background-color: #e1e1e1;
     color: #fff;
   }
-
-
-  .verify-row {
-    margin: 30px 0;
-  }
-
 
   .checkbox{
     height: 24px;
@@ -387,5 +381,9 @@
   .agreement-row{
     text-align: center;
   }
+  .agreement-row >>> .el-form-item__error{
+    position: static;
+  }
+
 
 </style>
