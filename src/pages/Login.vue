@@ -240,6 +240,9 @@
   .icon-right::before{
     z-index: 0!important;
   }
+  .icon-check::before{
+    z-index: 0!important;
+  }
 </style>
 
 <style scoped>

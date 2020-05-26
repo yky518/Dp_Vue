@@ -30,9 +30,11 @@
               <el-input id="keywords-search" type="text"  placeholder="Keywords: " name="keywords" v-model="searchForm.keywords" class="form-item"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="1">
               <el-button @click="reset" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-close form-icon"></i></el-button>
-              <el-button @click="onSubmit" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-search form-icon"></i></el-button>
+          </el-col>
+          <el-col :span="1">
+            <el-button @click="onSubmit" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-search form-icon"></i></el-button>
           </el-col>
 
 
@@ -140,7 +142,6 @@
       created() {
 
         let elementsString = this.$route.query.elements
-        console.log(elementsString)
         let elementsList = new Array()
         if (elementsString){
           elementsList = elementsString.split('-')
@@ -169,7 +170,6 @@
             this.distinct_models = res.data.distinct_models
             this.distinct_elements = res.data.distinct_elements
             this.pagination.count_all = parseInt(res.data.count_all)
-            console.log(this.result_details)
           }).catch(function(err){
             console.log(err)
           })
@@ -183,10 +183,13 @@
       methods: {
         onSubmit(){
             let searchQuery = {}
-            if(this.searchForm.element_selected){
+            if(this.searchForm.element_selected.length>0){
+              console.log(this.searchForm.element_selected)
               searchQuery.elements = ''
-              for(let item of this.searchForm.element_selected)
-              searchQuery.elements += item + '-'
+              for(let item of this.searchForm.element_selected){
+                searchQuery.elements += item + '-'
+              }
+
             }
             if(this.searchForm.model_selected){
               searchQuery.models = this.searchForm.model_selected
@@ -348,6 +351,9 @@
     font-size: 16px;
   }
 
+  .form-row >>>.el-button{
+    padding: 0 12px;
+  }
   .form-item >>> .el-select-dropdown__item{
     font-size: 20px;
     margin: 5px 0;
@@ -475,6 +481,7 @@
     font-size: 20px;
 
   }
+
 
   .form-icon{
     font-size: 20px;

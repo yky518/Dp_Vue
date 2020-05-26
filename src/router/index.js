@@ -1,17 +1,5 @@
 //import Vue from 'vue'
 import Router from 'vue-router'
-import ElementsList from "../pages/ElementsList";
-import ProjectDetails from "../pages/ProjectDetails";
-import Login from "../pages/Login";
-import UserProjects from "../pages/UserProjects";
-import AppendProject from "../pages/AppendProject";
-import PrivacyPolicy from "../pages/PrivacyPolicy";
-import ProjectEdit from "../pages/ProjectEdit";
-import ChangePassword from "../pages/ChangePassword";
-import ForgetPassword from "../pages/ForgetPassword";
-import UserInfo from "../pages/UserInfo";
-
-
 
 //Vue.use(Router)
 /*
