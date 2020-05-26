@@ -40,7 +40,6 @@
       }).catch(err=>{
         console.log(err)
       })
-      console.log("apo vue")
       console.log(this.$store.state.email)
     },
     methods:{

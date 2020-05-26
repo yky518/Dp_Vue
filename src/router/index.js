@@ -1,8 +1,6 @@
-import Vue from 'vue'
+//import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/Home'
 import ElementsList from "../pages/ElementsList";
-import PapersList from "../components/PapersList";
 import ProjectDetails from "../pages/ProjectDetails";
 import Login from "../pages/Login";
 import UserProjects from "../pages/UserProjects";
@@ -12,61 +10,73 @@ import ProjectEdit from "../pages/ProjectEdit";
 import ChangePassword from "../pages/ChangePassword";
 import ForgetPassword from "../pages/ForgetPassword";
 import UserInfo from "../pages/UserInfo";
-import axios from 'axios';
-import store from "../store"
 
 
 
-Vue.use(Router)
-const originalPush = Router.prototype.push
-
+//Vue.use(Router)
+/*
+const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
-
-  return originalPush.call(this, location).catch(err => err)
-
+  if(typeof(location)=="string"){
+    var Separator = "&";
+    if(location.indexOf('?')==-1) { Separator='?'; }
+    location = location + Separator + "random=" + Math.random();
+  }
+  return routerPush.call(this, location).catch(error=> error)
 }
+*/
+
 
 const router =  new Router({
   routes: [
     {
       path: '/',
       name: 'Default',
-      component: Home
+      component(resolve){
+        require(['@/pages/Home.vue'],resolve)
+      }
     },
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component(resolve){
+        require(['@/pages/Home.vue'],resolve)
+      }
     },
     {
       path: '/privacy_policy',
       name: 'PrivacyPolicy',
-      component: PrivacyPolicy
+      component(resolve){
+        require(['@/pages/PrivacyPolicy.vue'],resolve)
+      }
     },
     {
       path: '/elements_list',
       name: 'ElementsList',
-      component: ElementsList
-    },
-    {
-      path: '/papers_list',
-      name: 'PapersList',
-      component: PapersList
+      component(resolve){
+        require(['@/pages/ElementsList.vue'],resolve)
+      }
     },
     {
       path: '/project_details',
       name: 'ProjectDetails',
-      component: ProjectDetails
+      component(resolve){
+        require(['@/pages/ProjectDetails.vue'],resolve)
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component(resolve){
+        require(['@/pages/Login.vue'],resolve)
+      }
     },
     {
       path: '/user_projects',
       name: 'UserProjects',
-      component: UserProjects,
+      component(resolve){
+        require(['@/pages/UserProjects.vue'],resolve)
+      },
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       }
@@ -74,7 +84,9 @@ const router =  new Router({
     {
       path: '/change_password',
       name: 'ChangePassword',
-      component: ChangePassword,
+      component(resolve){
+        require(['@/pages/ChangePassword.vue'],resolve)
+      },
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       }
@@ -82,7 +94,9 @@ const router =  new Router({
     {
       path: '/user_info',
       name: 'UserInfo',
-      component: UserInfo,
+      component(resolve){
+        require(['@/pages/UserInfo.vue'],resolve)
+      },
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       }
@@ -90,12 +104,16 @@ const router =  new Router({
     {
       path: '/forget_password',
       name: 'ForgetPassword',
-      component: ForgetPassword,
+      component(resolve){
+        require(['@/pages/ForgetPassword.vue'],resolve)
+      }
     },
     {
       path: '/append_project',
       name: 'AppendProject',
-      component: AppendProject,
+      component(resolve){
+        require(['@/pages/AppendProject.vue'],resolve)
+      },
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       }
@@ -103,7 +121,9 @@ const router =  new Router({
     {
       path: '/project_edit',
       name: 'ProjectEdit',
-      component: ProjectEdit,
+      component(resolve){
+        require(['@/pages/ProjectEdit.vue'],resolve)
+      },
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       }

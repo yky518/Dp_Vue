@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import vueAxios from 'vue-axios'
-import './plugins/element.js'
+// import './plugins/element.js'
 import md5 from 'js-md5';
 import './assets/stylesheets/base.css'
 import 'font-awesome/css/font-awesome.min.css'

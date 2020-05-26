@@ -123,6 +123,7 @@
           this.$set(this.subitemHover, index, false)
         },
         changeTab(to){
+
           this.$router.push(to)
         },
         changeOuterTab(to){

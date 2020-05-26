@@ -5,7 +5,7 @@
     </div>
     <div id="header-text">
       <div class="text-panel">
-        <el-carousel id="carousel" interval="2000" trigger="click"  height="3rem">
+        <el-carousel id="carousel" :interval="2000" trigger="click"  height="3rem">
 
           <el-carousel-item>
             <el-row>
