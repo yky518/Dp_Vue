@@ -206,16 +206,18 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="References" name="references">
-          <div class="card" id="references" v-if="papers_info.length">
+          dfsaf{{ papers_info.length }}
+          <div class="card" id="references" v-if="papers_info.length>0">
             <h2>Paper Information</h2>
             <hr style="border:1px dashed #b6afd7;" />
             <el-form :label-width="labelWidth" v-for="(paper, index) in papers_info" :ref="'paper' + index" :key="index" :model="paper" class="form-margin">
               <el-row>
                 <el-col :span="10">
-                  <el-form-item label="Title">
-                    <el-input v-model="paper.title"></el-input>
+                  <el-form-item label="Citation">
+                    <el-input v-model="paper.citations"></el-input>
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="10" :offset="2">
                   <el-form-item label="Year">
                     <el-input v-model="paper.year"></el-input>
@@ -224,10 +226,11 @@
               </el-row>
               <el-row>
                 <el-col :span="10">
-                  <el-form-item label="Citation">
-                    <el-input v-model="paper.citations"></el-input>
+                  <el-form-item label="Title">
+                    <el-input v-model="paper.title"></el-input>
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="10" :offset="2">
                   <el-form-item label="DOI">
                     <el-input v-model="paper.DOI"></el-input>
@@ -277,11 +280,13 @@
             <hr style="border:1px dashed #b6afd7;" />
             <el-form ref="paper_add" :rules="rules2" :model="paper_add" :label-width="labelWidth" class="form-margin">
               <el-row>
+
                 <el-col :span="10">
-                  <el-form-item label="Title" prop="title">
-                    <el-input v-model="paper_add.title"></el-input>
+                  <el-form-item label="Citation" prop="citations">
+                    <el-input v-model="paper_add.citations"></el-input>
                   </el-form-item>
                 </el-col>
+
                 <el-col :span="10" :offset="2">
                   <el-form-item label="Year" prop="year">
                     <el-input v-model="paper_add.year"></el-input>
@@ -289,9 +294,10 @@
                 </el-col>
               </el-row>
               <el-row>
+
                 <el-col :span="10">
-                  <el-form-item label="Citation" prop="citations">
-                    <el-input v-model="paper_add.citations"></el-input>
+                  <el-form-item label="Title" prop="title">
+                    <el-input v-model="paper_add.title"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="10" :offset="2">
@@ -328,7 +334,7 @@
                 </el-col>
               </el-row>
               <el-row  class="button-row">
-                  <el-button round  class="button-submit" @click="paperAddSubmit" v-if="paper_add.title">
+                  <el-button round  class="button-submit" @click="paperAddSubmit" v-if="paper_add.citations">
                     <img src="../assets/images/提交.png" class="icon-img">
                     <span style="vertical-align:middle">Submit</span>
                   </el-button>
@@ -504,7 +510,7 @@
             ],
           },
           rules2:{
-            title: [
+            citations: [
               { required: true, message: 'Input your version', trigger: 'blur' }
             ],
           },
@@ -606,13 +612,34 @@
         //model相关
         modelDelete: function(args){
           console.log(args)
-          if(confirm('Are you sure to delete the data?')){
+          this.$confirm('Are you sure to delete the paper?', '', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning'
+          }).then(() => {
             this.axios.get('/v1/user/delete_data?project_id=' + args['project_id'] + '&model_id='+ args['model_id']+'&type=' + args['type']).then(res=>{
               console.log(res)
               this.reload();
             })
+            this.$message({
+              type: 'success',
+              message: 'Scuuess!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: 'Cancel！'
+            });
+          });
+/*          if(confirm('Are you sure to delete the data?')){
+            this.axios.get('/v1/user/delete_data?project_id=' + args['project_id'] + '&model_id='+ args['model_id']+'&type=' + args['type']).then(res=>{
+              console.log(res)
+              this.reload();
+            })
+
+
             // window.open('http://39.98.150.188:5002/dplibrary/user/delete_data?project_id=' + args['project_id'] + '&model_id='+ args['model_id']+'&type=' + args['type'])
-          }
+          }*/
         },
         modelEditSubmit(){
           this.axios.post('/v1/user/update_models', {
@@ -651,12 +678,31 @@
         },
         paperDelete(args){
           console.log(args)
-          if(confirm('Are you sure to delete the paper?')) {
+          this.$confirm('Are you sure to delete the paper?', '', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning'
+          }).then(() => {
             this.axios.get('/user/delete_data?project_id=' + args['project_id'] + '&paper_id=' + args['paper_id'] + '&type=' + args['type']).then(res => {
               console.log(res)
               // this.reload();
             })
-          }
+            this.$message({
+              type: 'success',
+              message: 'Scuuess!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: 'Cancel！'
+            });
+          });
+/*          if(confirm('Are you sure to delete the paper?')) {
+            this.axios.get('/user/delete_data?project_id=' + args['project_id'] + '&paper_id=' + args['paper_id'] + '&type=' + args['type']).then(res => {
+              console.log(res)
+              // this.reload();
+            })
+          }*/
         },
         paperEditSubmit(index){
           this.papers_info[index].elements = this.elementCheck(this.paparsElementJson[index])
@@ -762,7 +808,6 @@
             })
           }else{
             console.log(ref)
-            this[ref] = true
             console.log(e.target)
 
             let storeAs = this.$store.state.name + "/" + this.project_info['project_id'] + "/" + file.name;
@@ -771,53 +816,75 @@
 
             console.log(file.name + ' => ' + storeAs);
             this.axios.get('/v1/user/get_token').then(res=>{
-              let that = this
+
+              console.log(res.data)
               let result = res.data.result
-              console.log({
-                accessKeyId: result.AccessKeyId,
-                accessKeySecret: result.AccessKeySecret,
-                stsToken: result.SecurityToken,
-                endpoint: 'oss-cn-beijing.aliyuncs.com',
-                bucket: 'deeplibrary0',
+              if(result=="failed"){
+                this.$alert('Login Failure' ,'', {
+                  confirmButtonText: 'OK',
+                  showClose: false,
+                  iconClass: "el-icon-circle-close",
+                  center: true,
+                  customClass: 'success-box',
+                  callback: action => {
+                    // this.reload()
+                    return
+                  }
+                })
 
-              })
-              let client = new OSS({
-                accessKeyId: result.AccessKeyId,
-                accessKeySecret: result.AccessKeySecret,
-                stsToken: result.SecurityToken,
-                endpoint: 'oss-cn-beijing.aliyuncs.com',
-                bucket: 'deeplibrary0',
+              }else{
+                this[ref] = true
+                console.log({
+                  accessKeyId: result.AccessKeyId,
+                  accessKeySecret: result.AccessKeySecret,
+                  stsToken: result.SecurityToken,
+                  endpoint: 'oss-cn-beijing.aliyuncs.com',
+                  bucket: 'deeplibrary0',
 
-              });
-              var options = {
-                callback: {
-                  // 您的回调服务器地址，如http://oss-demo.aliyuncs.com:23450或http://127.0.0.1:9090。
-                  url: 'http://39.98.150.188:5001/test_post',
-                  // 设置回调请求消息头中Host的值，如oss-cn-hangzhou.aliyuncs.com。
-                  host: 'oss-cn-hangzhou.aliyuncs.com',
-                  // 设置发起回调请求的Content-Type。
-                  body: 'bucket=1',
-                  contentType: 'application/x-www-form-urlencoded',
-                  // 设置发起回调请求的自定义参数。
-                  customValue: {
-                    var1: 'value1',
-                    var2: 'value2'
+                })
+                let client = new OSS({
+                  accessKeyId: result.AccessKeyId,
+                  accessKeySecret: result.AccessKeySecret,
+                  stsToken: result.SecurityToken,
+                  endpoint: 'oss-cn-beijing.aliyuncs.com',
+                  bucket: 'deeplibrary0',
+
+                });
+                var options = {
+                  callback: {
+                    // 您的回调服务器地址，如http://oss-demo.aliyuncs.com:23450或http://127.0.0.1:9090。
+                    url: 'http://39.98.150.188:5002/dplibrary/test/test_post',
+                    // 设置回调请求消息头中Host的值，如oss-cn-hangzhou.aliyuncs.com。
+                    host: 'oss-cn-hangzhou.aliyuncs.com',
+                    // 设置发起回调请求的Content-Type。
+                    body: 'bucket=1',
+                    contentType: 'application/x-www-form-urlencoded',
+                    // 设置发起回调请求的自定义参数。
+                    customValue: {
+                      var1: 'value1',
+                      var2: 'value2'
+                    }
                   }
                 }
+
+
+                let that = this
+                client.put(storeAs, file, options).then(function (result) {
+                  console.log(result);
+                  that[fileType].data= "https://deeplibrary0.oss-cn-beijing.aliyuncs.com/" + storeAs
+                  that[fileType].data_size= file.size
+                  that[ref] = false
+
+                  //文件上传成功消息提示
+                  const h = that.$createElement;
+                  that.$message({message:h('p',{style:'color:#33327e;font-size:0.15rem;'},"Upload successfully！")});
+
+                }).catch(function (err) {
+                  console.log(err);
+                });
+
               }
-              client.put(storeAs, file, options).then(function (result) {
-                console.log(result);
-                that[fileType].data= "https://deeplibrary0.oss-cn-beijing.aliyuncs.com/" + storeAs
-                that[fileType].data_size= file.size
-                that[ref] = false
 
-                //文件上传成功消息提示
-                const h = that.$createElement;
-                that.$message({message:h('p',{style:'color:#33327e;font-size:0.15rem;'},"Upload successfully！")});
-
-              }).catch(function (err) {
-                console.log(err);
-              });
 
             }).catch(err=>{
               console.log(err)
@@ -838,7 +905,7 @@
               customClass: 'success-box',
               callback: action => {
                 this.$refs[ref].value = ""
-                that[fileType][index].data=""
+                this[fileType][index].data=""
               }
             })
           }else {
@@ -878,7 +945,7 @@
               var options = {
                 callback: {
                   // 您的回调服务器地址，如http://oss-demo.aliyuncs.com:23450或http://127.0.0.1:9090。
-                  url: 'http://39.98.150.188:5001/test_post',
+                  url: 'http://39.98.150.188:5002/dplibrary/test/test_post',
                   // 设置回调请求消息头中Host的值，如oss-cn-hangzhou.aliyuncs.com。
                   host: 'oss-cn-hangzhou.aliyuncs.com',
                   // 设置发起回调请求的Content-Type。
@@ -933,9 +1000,6 @@
             }
           })
         },
-        signatureUrl(url){
-
-        },
       },
       components:{
         ElementPicker,
@@ -947,7 +1011,7 @@
 
 <style>
 
-  .el-button{
+  #project_edit .el-button{
     font-size: 22px!important;
   }
 

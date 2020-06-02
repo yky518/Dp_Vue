@@ -1,19 +1,7 @@
 //import Vue from 'vue'
 import Router from 'vue-router'
-
-//Vue.use(Router)
-/*
-const routerPush = Router.prototype.push
-Router.prototype.push = function push(location) {
-  if(typeof(location)=="string"){
-    var Separator = "&";
-    if(location.indexOf('?')==-1) { Separator='?'; }
-    location = location + Separator + "random=" + Math.random();
-  }
-  return routerPush.call(this, location).catch(error=> error)
-}
-*/
-
+import axios from "axios";
+import store from "@/store/index.js"
 
 const router =  new Router({
   routes: [
@@ -121,9 +109,18 @@ const router =  new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  axios.get('v1/user/check_username').then(res=>{
+    if(res.data.result == 'failed'){
+      store.commit('logout')
+    }else{
+      store.commit('login',res.data)
+    }
+    console.log(store.state)
+  }).catch(err=>{
+    console.log(err)
+  })
   if(to.meta.requireAuth) {
     //是否含有name的cookie。否则login
-    console.log($cookies.keys())
     if($cookies.isKey('name')){
       next();
     }else{

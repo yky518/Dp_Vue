@@ -208,7 +208,8 @@
   }
   #body{
     width: 1400px;
-    margin: 20px auto 240px;
+    margin: 20px auto;
+    min-height: 850px;
   }
   #body >>> .el-input__inner{
     background-color: #f6f6f6;
@@ -247,8 +248,8 @@
     margin-top: 30px;
   }
   .footer{
-    position: fixed;
+/*    position: fixed;
     bottom: 0;
-    z-index: 100;
+    z-index: 100;*/
   }
 </style>

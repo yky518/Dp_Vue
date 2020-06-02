@@ -31,11 +31,12 @@
             </el-form-item>
           </el-col>
           <el-col :span="1">
-              <el-button @click="reset" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-close form-icon"></i></el-button>
-          </el-col>
-          <el-col :span="1">
             <el-button @click="onSubmit" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-search form-icon"></i></el-button>
           </el-col>
+          <el-col :span="1">
+              <el-button @click="reset" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-close form-icon"></i></el-button>
+          </el-col>
+
 
 
         </el-row>
@@ -139,7 +140,7 @@
             }
           }
         },
-      created() {
+      mounted() {
 
         let elementsString = this.$route.query.elements
         let elementsList = new Array()
@@ -380,7 +381,7 @@
 
   .pagination-block >>> .el-pager li{
     font-size: 22px;
-    padding: 5px 0;
+    padding: 0 5px;
     height:40px;
   }
 
@@ -430,6 +431,10 @@
     word-break: break-word;
   }
 
+  .center-panel >>> .el-table .cell .el-button--mini{
+    padding: 5px 10px;
+    font-size: 14px;
+  }
   .center-panel >>> tbody tr{
     height: 120px;
     margin-top: 10px;

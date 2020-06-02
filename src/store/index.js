@@ -18,7 +18,6 @@ const store = new Vuex.Store({
       state.email = data.email
       state.email_verify = parseInt(data.email_verify)
       state.create_time = data.create_time
-      console.log(state.email )
     },
     logout:function (state) {
       //修改这两个变量的值
@@ -30,6 +29,18 @@ const store = new Vuex.Store({
       Cookie.remove('name')
     }
   },
+  actions:{
+    loginAction(ctx,data){
+      ctx.commit("login",data);
+    },
+    logoutAction(ctx){
+      ctx.commit("logout");
+    },
+
+
+
+
+  }
 
 
 })

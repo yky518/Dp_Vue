@@ -15,7 +15,7 @@
             <el-row>
               <el-col :span="10">
                 <el-form-item label="Name" prop="username">
-                  <el-input  v-model="username"></el-input>
+                  <el-input v-model="username"></el-input>
                 </el-form-item>
               </el-col>
 <!--              <el-col :span="10" :offset="2">
@@ -40,7 +40,7 @@
               <el-col :span="10">
                 <el-form-item label="Email" prop="email">
                   <span class="email-link">{{email}}</span>
-                  <el-link v-if="userInfo.show" class="email-tips" @click.native="emailActivate">Click to activate</el-link>
+                  <el-link v-if="show" class="email-tips" @click.native="emailActivate">Click to activate</el-link>
                 </el-form-item>
               </el-col>
 <!--              <el-col :span="10" :offset="2">
@@ -94,7 +94,11 @@
               phone:"",
               occupation:""
 
-            }
+            },
+/*            username: this.$store.state.name,
+            eamil: this.$store.state.email,
+            show: this.$store.state.email_verify < 1,
+            creattime: this.$store.state.create_time*/
           }
       },
       computed:{
@@ -105,7 +109,7 @@
             return this.$store.state.email
           },
          show(){
-            return this.$store.state.email_verify < 1
+            return this.$store.state.email_verify < 1;
          },
         creatTime(){
           return this.$store.state.create_time
@@ -161,93 +165,104 @@
 
 <style scoped lang="scss">
 
-  .header{
-    background: url("../assets/images/userproject-导航背景.png");
-    width: 100%;
-    z-index:10;
-    height: 100px;
-    background-size:100% 100%;
-  }
-  .sub-header{
-    background: url("../assets/images/userproject-作者背景.png");
-    width: 100%;
-    height: 80px;
-    background-size:100% 100%;
-  }
-  .card{
-    width: 1400px;
-    margin: -40px auto 240px;
-    padding: 10px 20px;
-    border-radius: 10px;
-    >>> .el-form-item{
-      .el-form-item__label{
-        font: 24px/40px "Microsoft Ya Hei";
-        font-weight: 500;
-        color: #333333;
-      }
+  .upper-part{
+    min-height: 950px;
 
-      .el-input__inner{
-        background-color: #f6f6f6;
-        font: 24px/40px "Microsoft Ya Hei";
-      }
+    .header{
+      background: url("../assets/images/userproject-导航背景.png");
+      width: 100%;
+      z-index:10;
+      height: 100px;
+      background-size:100% 100%;
     }
-    .email-link{
+    .sub-header{
+      background: url("../assets/images/userproject-作者背景.png");
+      width: 100%;
+      height: 80px;
+      background-size:100% 100%;
+    }
+    .card{
+      width: 1400px;
+      margin: -40px auto 240px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      >>> .el-form-item{
+        .el-form-item__label{
+          font: 24px/40px "Microsoft Ya Hei";
+          font-weight: 500;
+          color: #333333;
+        }
+
+        .el-form-item__content{
+          line-height: 40px;
+        }
+
+        .el-input__inner{
+          background-color: #f6f6f6;
+          font: 24px/40px "Microsoft Ya Hei";
+        }
+      }
+      .email-link{
         font: 22px/40px "Microsoft Ya Hei";
         font-weight: 500;
         color: #303479;
-    }
-    .create-time{
-      color: #333333;
-      font-size: 22px;
-      font-family: "Microsoft Ya Hei";
-    }
+      }
+      .create-time{
+        color: #333333;
+        font-size: 22px;
+        font-family: "Microsoft Ya Hei";
+        line-height: 40px;
+      }
 
-    .email-tips{
-      color: #c04851;
-      font: 18px/30px "Microsoft Ya Hei";
-      font-weight: 500;
-      &:hover::after {
-        border-bottom: 2px solid #c04851;
+      .email-tips{
+        color: #c04851;
+        font: 18px/30px "Microsoft Ya Hei";
+        font-weight: 500;
+        &:hover::after {
+          border-bottom: 2px solid #c04851;
+        }
+      }
+
+      .password-link{
+        color: #303479;
+        font: 22px/40px "Microsoft Ya Hei";
+        font-weight: 500;
+        &:hover::after {
+          border-bottom: 4px solid #303479;
+        }
+      }
+
+      .pass-button{
+        background-color: #303479;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 22px;
+        .icon-img{
+          vertical-align: middle;
+          height: 24px;
+          margin-right: 5px;
+        }
+      }
+      .button-submit{
+        background-color: #33327e;
+        color: #fff;
+        font: 24px/24px  "Microsoft Ya Hei";
+      }
+
+      .button-cancel{
+        background-color: #e1e1e1;
+        color: #fff;
+        font: 24px/24px  "Microsoft Ya Hei";
       }
     }
 
-    .password-link{
-      color: #303479;
-      font: 22px/40px "Microsoft Ya Hei";
-      font-weight: 500;
-      &:hover::after {
-        border-bottom: 4px solid #303479;
-      }
-    }
-
-    .pass-button{
-      background-color: #303479;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 22px;
-      .icon-img{
-        vertical-align: middle;
-        height: 24px;
-        margin-right: 5px;
-      }
-    }
-    .button-submit{
-      background-color: #33327e;
-      color: #fff;
-      font: 24px/24px  "Microsoft Ya Hei";
-    }
-
-    .button-cancel{
-      background-color: #e1e1e1;
-      color: #fff;
-      font: 24px/24px  "Microsoft Ya Hei";
-    }
   }
 
+
   .footer{
-    position: fixed;
+/*    position: fixed;
     bottom: 0;
-    z-index: 100;
+    z-index: 100;*/
   }
 </style>
 

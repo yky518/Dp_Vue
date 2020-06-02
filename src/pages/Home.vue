@@ -5,11 +5,11 @@
     </div>
     <div id="header-text">
       <div class="text-panel">
-        <el-carousel id="carousel" :interval="2000" trigger="click"  height="3rem">
+        <el-carousel id="carousel" trigger="click"  height="3rem" class="carousel">
 
-          <el-carousel-item>
+          <el-carousel-item class="carousel-item">
             <el-row>
-              <el-col :span="20">
+              <el-col :span="24">
                 <h2>Overview</h2>
                 <p>
                   Machine learning-based methods are changing the way people use to develop interatomic
@@ -32,7 +32,7 @@
               <!--          </el-col>-->
             </el-row>
           </el-carousel-item>
-          <el-carousel-item>
+          <el-carousel-item class="carousel-item">
             <el-row>
               <el-col :span="8">
                 <img class="text-img" src="../assets/images/首页插图.png">
@@ -720,6 +720,7 @@
   .components-list >>> .el-button {
     font-size: 22px;
     height: 50px;
+    padding: 0 10px;
   }
 
   .components-list p {
@@ -734,6 +735,8 @@
     line-height: 30px;
     font-family: "Microsoft Ya Hei";
     word-wrap:break-word;
+    text-align: justify;
+    text-indent:35px
   }
 
   .text-panel h2{
@@ -752,6 +755,10 @@
 
   .text-panel >>> .el-link{
     font-size: 22px;
+  }
+  .carousel-item{
+    margin: 0 100px;
+    width: auto;
   }
 
   /*search */
@@ -782,6 +789,7 @@
     line-height: 24px;
     height: 50px;
     vertical-align: middle;
+    padding: 0 10px;
   }
 
   #search-form >>> .el-button:hover{
@@ -848,7 +856,7 @@
     line-height: 24px;
   }
   .text-panel{
-    width:1400px;
+    width:1600px;
     margin: 0 auto;
   }
   .round-button{

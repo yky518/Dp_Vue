@@ -29,17 +29,6 @@
     },
     created() {
       window.addEventListener('unload', this.saveState)
-      //加载页面时，判断后台session状态，自动登录
-      axios.get('v1/user/check_username').then(res=>{
-        console.log(this.$cookies)
-        if(res.data.result == 'failed'){
-          this.$store.commit('logout')
-        }else{
-          this.$store.commit('login',res.data)
-        }
-      }).catch(err=>{
-        console.log(err)
-      })
     },
     methods:{
       reload(){

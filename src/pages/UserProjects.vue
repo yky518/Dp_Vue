@@ -218,6 +218,10 @@
     -webkit-box-orient: vertical;
     word-break: break-word;
   }
+  .center-panel >>> .el-table .cell .el-button--mini{
+    padding: 5px 10px;
+    font-size: 14px;
+  }
 
   .center-panel >>> .el-table thead tr{
     height: 80px;
@@ -264,7 +268,7 @@
 
   .pagination-block >>> .el-pager li{
     font-size: 22px;
-    padding: 5px 0;
+    padding: 0 5px ;
     height:40px;
   }
 
