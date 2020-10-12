@@ -12,6 +12,10 @@ import 'font-awesome/css/font-awesome.min.css'
 import 'lib-flexible/flexible'
 import store from './store'
 import VueCookies from 'vue-cookies'
+import echarts from 'echarts'
+
+
+Vue.prototype.$echarts = echarts
 Vue.use(vueAxios, axios)
 Vue.use(VueCookies)
 Vue.config.productionTip = false

@@ -6,7 +6,7 @@
 
         <el-tabs type="border-card" id="login-tabs">
           <el-tab-pane label="Login">
-            <el-form status-icon :rules="rules" label-position="left" ref="loginForm" :model="loginForm" label-width="1.00rem">
+            <el-form status-icon :rules="rules" label-position="left" ref="loginForm" :model="loginForm" label-width="0.90rem">
               <el-form-item label="Username" prop="name">
                 <el-input v-model="loginForm.name"></el-input>
               </el-form-item>
@@ -20,7 +20,7 @@
                 <input type="checkbox" class="checkbox" v-model="loginForm.checked">
                 Accept the <router-link to="/privacy_policy"> <i>user agreement</i> </router-link>
               </el-form-item>
-              <div style="text-align: center;">
+              <div style="text-align: center;" class="button-row">
                 <el-button round size="small" class="button-submit" @click="submitForm('loginForm')">Submit</el-button>
                 <el-button round size="small" class="button-cancel" @click="resetForm('loginForm')">Cancel</el-button>
               </div>
@@ -32,7 +32,7 @@
             <hr style="height:1px;border:none;border-top:1px solid #bdbddb;">
             <div style="display: flex;justify-content: flex-end;">
 <!--              <span class="third-party">Thrid Party Login</span>-->
-              <el-avatar :src="require('../assets/images/github.jpg')"></el-avatar>
+              <el-avatar :src="require('../assets/images/github.jpg')" class="third-avatar"></el-avatar>
             </div>
 
           </el-tab-pane>
@@ -322,7 +322,7 @@
   }
 
   #login-tabs>>> .el-form-item{
-    margin: 50px 0;
+    /*margin: 50px 0;*/
   }
 
   #login-tabs >>> .el-form-item__content{
@@ -330,22 +330,28 @@
   }
 
   #login-tabs >>> .el-form-item__error{
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .button-submit{
     background-color: #33327e;
     color: #fff;
+    border: 0;
   }
 
   .button-cancel{
     background-color: #e1e1e1;
     color: #fff;
+    border: 0;
   }
 
   .checkbox{
     height: 24px;
     width:24px;
+  }
+
+  .verify-row{
+    margin: 20px 0!important;
   }
 
   .verify-row >>> .verify-bar-area{
@@ -382,10 +388,21 @@
   }
 
   .agreement-row{
-    text-align: center;
+    /*text-align: center;*/
+    margin: 0!important;
   }
   .agreement-row >>> .el-form-item__error{
     position: static;
+    margin-left: 0.90rem;
+  }
+
+  .button-row{
+    margin: 5px 0;
+  }
+
+  .third-avatar{
+    width: 40px;
+    height: 40px;
   }
 
 

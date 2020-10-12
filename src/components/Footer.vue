@@ -16,7 +16,10 @@
         </el-col>
         <el-col :span="3">
           <h2>Links</h2>
-          <el-link class="footer-text" @click="$router.push('privacy_policy')">Privacy Policy</el-link>
+          <p><el-link class="footer-text" @click="$router.push('privacy_policy')">Privacy Policy</el-link></p>
+          <p><el-link class="footer-text" @click="$router.push('help')">Help</el-link></p>
+          <p><el-link class="footer-text" @click="$router.push('contact')">Contact Us</el-link></p>
+
         </el-col>
         <el-col :span="3">
           <h2>Publication</h2>
@@ -24,7 +27,7 @@
           <p><el-link class="footer-text">Application</el-link></p>
         </el-col>
         <el-col :span="6" :offset="6">
-          <img src="../assets/images/DP英文logo-页脚.png"  class="footer-img">
+          <img src="../assets/images/logo_foot.png"  class="footer-img">
         </el-col>
       </el-row>
     </div>
@@ -66,8 +69,9 @@
     font-size: 20px;
   }
   .footer-img {
-    height: 44px;
+    height: 100px;
     padding-top: 36px;
+    float:right;
   }
   .footer-text{
     font-weight: 400;

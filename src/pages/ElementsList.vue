@@ -30,11 +30,11 @@
               <el-input id="keywords-search" type="text"  placeholder="Keywords: " name="keywords" v-model="searchForm.keywords" class="form-item"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="1">
-            <el-button @click="onSubmit" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-search form-icon"></i></el-button>
-          </el-col>
-          <el-col :span="1">
+          <el-col :span="3">
+            <el-button-group>
+              <el-button @click="onSubmit" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-search form-icon"></i></el-button>
               <el-button @click="reset" style="background-color:#ffffff;border: 0;"  class="form-item"><i class="el-icon-close form-icon"></i></el-button>
+            </el-button-group>
           </el-col>
 
 
@@ -86,12 +86,12 @@
         <el-table-column align="center" prop="update_time"  :formatter="formatter" min-width="16%">
           <template slot="header" slot-scope="scope">
             <div style="display: flex;justify-content: center;">
-              <div class="sort-column" style="display: flex">
+              <div class="sort-column" style="display: flex;align-items: center;">
                 Update Time
               </div>
                 <div class="sort-icon">
-                  <i class="el-icon-caret-top top-icon" @click="sort(-1)"></i>
-                  <i class="el-icon-caret-bottom bottom-icon" @click="sort(0)"></i>
+                  <i class="el-icon-caret-top top-icon" :style="{color:sort_type==-1?'#33327e':'#abaabb'}"  @click="sort(-1)"></i>
+                  <i class="el-icon-caret-bottom bottom-icon" :style="{color:sort_type==0?'#33327e':'#abaabb'}" @click="sort(0)"></i>
                 </div>
               </div>
 
@@ -134,37 +134,52 @@
               authors: '',
               keywords: '',
             },
+            sort_type: '',
             pagination:{
               currentPage: 1,
               count_all: 0
             }
           }
         },
-      mounted() {
-
-        let elementsString = this.$route.query.elements
-        let elementsList = new Array()
-        if (elementsString){
-          elementsList = elementsString.split('-')
-        }
-        if(elementsList.indexOf('')>=0){
-          elementsList.splice(elementsList.length-1,1)
-        }
-        this.searchForm.element_selected = elementsList
-        this.searchForm.keywords = this.$route.query.keywords
-        this.searchForm.authors = this.$route.query.authors
-        this.searchForm.model_selected = this.$route.query.models
-
-        let param = {
-          elements : elementsList ? elementsList : [],
-          page: this.$route.query.page ? parseInt(this.$route.query.page): 1,
-          keywords: this.$route.query.keywords? this.$route.query.keywords : '',
-          authors: this.$route.query.authors ? this.$route.query.authors: '',
-          models: this.$route.query.models ?this.$route.query.models: '',
-          sort_type: this.$route.query.sort_type ?this.$route.query.sort_type: ''
+      created() {
+        this.getData();
+      },
+      watch: {
+        '$route' : {
+          handler(){
+            this.getData();
+          },
+          deep: true,
+          immediate: true
 
         }
-        this.pagination.currentPage = parseInt(this.$route.query.page)
+      },
+      methods: {
+        getData(){
+          let elementsString = this.$route.query.elements
+          let elementsList = new Array()
+          if (elementsString){
+            elementsList = elementsString.split('-')
+          }
+          if(elementsList.indexOf('')>=0){
+            elementsList.splice(elementsList.length-1,1)
+          }
+          this.searchForm.element_selected = elementsList
+          this.searchForm.keywords = this.$route.query.keywords
+          this.searchForm.authors = this.$route.query.authors
+          this.searchForm.model_selected = this.$route.query.models
+
+          this.sort_type = this.$route.query.sort_type ?this.$route.query.sort_type: ''
+          let param = {
+            elements : elementsList ? elementsList : [],
+            page: this.$route.query.page ? parseInt(this.$route.query.page): 1,
+            keywords: this.$route.query.keywords? this.$route.query.keywords : '',
+            authors: this.$route.query.authors ? this.$route.query.authors: '',
+            models: this.$route.query.models ?this.$route.query.models: '',
+            sort_type: this.$route.query.sort_type ?this.$route.query.sort_type: ''
+
+          }
+          this.pagination.currentPage = parseInt(this.$route.query.page)
           let url = '/v1/projects/get_elements_details?'
           this.axios.post(url, param).then((res) => {
             this.result_details = res.data.result_details
@@ -174,14 +189,7 @@
           }).catch(function(err){
             console.log(err)
           })
-
-      },
-      watch: {
-        '$route' (to, from) {
-          this.$router.go(0);
-        }
-      },
-      methods: {
+        },
         onSubmit(){
             let searchQuery = {}
             if(this.searchForm.element_selected.length>0){
@@ -240,36 +248,59 @@
           }
         },
         download(dataUrl){
-          let region = 'https://deeplibrary0.oss-cn-beijing.aliyuncs.com'
-          let object_key = dataUrl.replace(region, '')
+            let region = 'https://deeplibrary0.oss-cn-beijing.aliyuncs.com'
+            let object_key = dataUrl.replace(region, '')
 
-          this.axios.get('/v1/user/get_token').then(res => {
-            console.log(object_key)
-            console.log(res.data)
+            this.axios.get('/v1/user/get_token').then(res => {
+              console.log(object_key)
+              console.log(res.data)
 
-            if(res.data.result=="failed"){
-              //get_token失败
-              this.$alert('Login for download' ,'', {
-                confirmButtonText: 'OK',
-                showClose: false,
-                iconClass: "el-icon-circle-close",
-                center: true,
-                customClass: 'success-box',
-                callback: action => {
-                  return
+              if(res.data.result=="failed"){
+                //get_token失败
+                this.$confirm('Login for download' ,'', {
+                  confirmButtonText: 'Login',
+                  cancelButtonText: 'Cancel',
+                  showClose: true,
+                  iconClass: "el-icon-circle-close",
+                  center: true,
+                  customClass: 'success-box',
+                }).then(() => {
+                  this.$router.push("/login")
+                }).catch(() => {
+
+                })
+              }else{
+                if(this.$store.state.email_verify==0) {
+                  this.$confirm('Please activate email before download!', '', {
+                    confirmButtonText: 'To Activate',
+                    cancelButtonText: 'Cancel',
+                    showClose: true,
+                    iconClass: "el-icon-circle-close",
+                    center: true,
+                    customClass: 'success-box',
+                  }).then(() => {
+                    this.$router.push("/user_info")
+                  }).catch(() => {
+
+                  })
+                }else{
+                  let tokenData= res.data.result
+                  console.log(tokenData)
+                  let signatureUrl = getSignatureUrl(tokenData,object_key)
+                  console.log(signatureUrl)
+
+                  window.location.href = signatureUrl
                 }
-              })
-            }else{
-              let tokenData= res.data.result
-              console.log(tokenData)
-              let signatureUrl = getSignatureUrl(tokenData,object_key)
-              console.log(signatureUrl)
-              window.location.href = signatureUrl
-            }
 
-          }).catch(err => {
-            console.log(err)
-          })
+
+              }
+
+            }).catch(err => {
+              console.log(err)
+            })
+
+
+
         },
         formatter(row, column){
           let date = row.update_time.split(' ');
@@ -306,6 +337,51 @@
 
     }
 </script>
+
+
+
+<style>
+
+
+
+  .success-box .el-button--primary{
+    background-color: #303479;
+    border-radius: 15px!important;
+    padding: 10px 20px;
+  }
+
+  .success-box .el-button--small{
+    border-radius: 15px!important;
+    padding: 10px 20px;
+
+  }
+
+  .success-box  .el-icon-circle-check{
+    color: #303479;
+    height: 40px;
+    font-size: 50px!important;
+    font-weight: 500;
+  }
+
+  .success-box  .el-icon-circle-close{
+    color: #c02c38;
+    height: 40px;
+    font-size: 50px!important;
+    font-weight: 500;
+  }
+
+  .success-box .el-message-box__content{
+    padding-bottom: 30px;
+    padding-top: 30px;
+    font-size: 22px;
+    font-family: "Microsoft Ya Hei";
+  }
+
+  .success-box {
+    border-radius: 15px;
+  }
+</style>
+
 
 <style scoped>
   #element_list {
@@ -365,9 +441,9 @@
     margin-top: 18px;
   }
 
-  >>> .el-icon-search:before{
+/*  >>> .el-icon-search:before{
     color: #333333;
-  }
+  }*/
 
   .pagination-block >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #33327e;

@@ -12,8 +12,9 @@
 
 <script>
     export default {
-        name: "ElementCell",
-        props: ['index', 'title', 'content', 'haveProjects']
+      name: "ElementCell",
+      props: ['index', 'title', 'content', 'haveProjects'],
+
     }
 </script>
 

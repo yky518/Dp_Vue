@@ -14,13 +14,24 @@ module.exports = {
 
       '/api': {
 
-        target: 'http://39.98.150.188:5002/dplibrary',
+        // target: 'http://39.98.150.188:5002/dplibrary',
+        target: 'http://dplibrary.deepmd.net/api',
 
         changeOrigin: true,
 
         pathRewrite: {
           '^/api': ''
-        }
+        },
+      },
+      '/ali': {
+
+        target: 'http://deeplibrary0.oss-cn-beijing.aliyuncs.com',
+
+        changeOrigin: true,
+
+        pathRewrite: {
+          '^/ali': ''
+        },
       }
     },
 

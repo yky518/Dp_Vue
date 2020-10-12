@@ -114,36 +114,53 @@
           })
         },
         download(dataUrl){
-          let region = 'https://deeplibrary0.oss-cn-beijing.aliyuncs.com'
-          let object_key = dataUrl.replace(region, '')
+          if(this.$store.state.email_verify==0){
+            this.$alert('Please activate email before download!' ,'', {
+              confirmButtonText: 'OK',
+              showClose: true,
+              iconClass: "el-icon-circle-close",
+              center: true,
+              customClass: 'success-box',
+              callback: action => {
+                this.$router.push("/user_info")
+              }
+            })
+          }else{
+            let region = 'https://deeplibrary0.oss-cn-beijing.aliyuncs.com'
+            let object_key = dataUrl.replace(region, '')
 
-          this.axios.get('/v1/user/get_token').then(res => {
-            console.log(object_key)
-            console.log(res.data)
+            this.axios.get('/v1/user/get_token').then(res => {
+              console.log(object_key)
+              console.log(res.data)
 
-            if(res.data.result=="failed"){
-              //get_token失败
-              this.$alert('Login for download' ,'', {
-                confirmButtonText: 'OK',
-                showClose: false,
-                iconClass: "el-icon-circle-close",
-                center: true,
-                customClass: 'success-box',
-                callback: action => {
-                  return
-                }
-              })
-            }else{
-              let tokenData= res.data.result
-              console.log(tokenData)
-              let signatureUrl = getSignatureUrl(tokenData,object_key)
-              console.log(signatureUrl)
-              window.location.href = signatureUrl
-            }
+              if(this.$store.state.email_verify==0) {
+                this.$confirm('Please activate email before download!', '', {
+                  confirmButtonText: 'To Activate',
+                  cancelButtonText: 'Cancel',
+                  showClose: true,
+                  iconClass: "el-icon-circle-close",
+                  center: true,
+                  customClass: 'success-box',
+                }).then(() => {
+                  this.$router.push("/user_info")
+                }).catch(() => {
 
-          }).catch(err => {
-            console.log(err)
-          })
+                })
+              }else{
+                let tokenData= res.data.result
+                console.log(tokenData)
+                let signatureUrl = getSignatureUrl(tokenData,object_key)
+                console.log(signatureUrl)
+
+                window.location.href = signatureUrl
+              }
+
+
+            }).catch(err => {
+              console.log(err)
+            })
+          }
+
         },
         formatter(row, column){
           let date = row.update_time.split(' ');
@@ -157,6 +174,40 @@
     }
 </script>
 
+
+<style>
+  .success-box .el-button--primary{
+    background-color: #303479;
+    border-radius: 15px!important;
+    padding: 10px 20px;
+  }
+
+  .success-box .el-button--small{
+    border-radius: 15px!important;
+    padding: 10px 20px;
+
+  }
+
+  .success-box  .el-message-box__status{
+    color: #303479;
+    height: 40px;
+    font-size: 50px!important;
+    font-weight: 500;
+  }
+
+  .success-box .el-message-box__content{
+    padding-bottom: 30px;
+    padding-top: 30px;
+    font-size: 22px;
+    font-family: "Microsoft Ya Hei";
+  }
+
+  .success-box {
+    border-radius: 15px;
+  }
+
+
+</style>
 
 <style scoped>
 

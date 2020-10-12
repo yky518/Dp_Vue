@@ -46,10 +46,33 @@
       </div>
     </div>
 
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="40%">
+      <div style="text-align: center;">
+        <el-avatar style="background-color: #fda72e;text-align: center">
+
+          <img src="../assets/images/下载.png" style="width: 60%;height:60%;margin:20% 0 0 20%"/>
+        </el-avatar>
+
+        <h3>Contribute</h3>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="$router.push('/append_project')">Add your project</el-button>
+          <el-button @click="$router.push('/help')">Contact</el-button>
+        </span>
+      </div>
+
+
+    </el-dialog>
     <div id="main">
       <div id="element-panel">
         <div id="search-form">
           <div style="">
+            <el-button size="mini" style="background-color: #fda72e;border-radius: 6px" @click.native="dialogVisible = true">
+              <img src="../assets/images/下载.png" class="icon-img">
+              <span style="vertical-align:middle;color:#fff;">Download</span>
+            </el-button>
+
             <el-input v-model="search" placeholder="Na-O" class="search-input" @input="searchChange"></el-input>
             <el-icon class="el-icon-close search-close" @click.native="clearSearch()"></el-icon>
             <el-button @click="submitSearch()" class="search-button">Search</el-button>
@@ -146,6 +169,7 @@
               <td class="element empty"><br></td>
               <td class="element empty"><br></td>
               <td class="element post-transition"><div id="Al" class="symbol_element" :style="{'cursor':elements['Al']?'pointer':'not-allowed'}">
+                {{elements['Al']}}
                 <ElementCell :content="elements['Al']" :haveProjects="elements['Al']" index="13" title="Al" @click.native="elementClick('Al')"></ElementCell>
               </div></td>
               <td class="element metalloid"><div id="Si" class="symbol_element" :style="{'cursor':elements['Si']?'pointer':'not-allowed'}">
@@ -511,13 +535,13 @@
 
       </div>
 
-      <div id="components-list" class="components-list">
+<!--      <div id="components-list" class="components-list">
         <div class="center-panel">
           <h2>Alloys, Compounds, and Mixtures</h2>
-          <p>
+&lt;!&ndash;          <p>
             Listed alphabetically by the elemental system or the compound(s) the potentials were designed for.
             For elemental systems, the components are listed alphabetically.
-          </p>
+          </p>&ndash;&gt;
           <el-row>
             <el-col :span="4" v-for="(value,key) in mixturesShow"  :id="key" :key="key" class="mixture-item">
 
@@ -529,7 +553,7 @@
 
             </el-col>
           </el-row>
-          <p>
+&lt;!&ndash;          <p>
             Fictional potentials.  These are included for reproducibility but not
             meant to accurately reflect real materials.
           </p>
@@ -537,12 +561,13 @@
             <strong class="text-warning">NOTE:</strong> multi-component element system potentials may not be applicable to the full
             composition range as they are often designed for specific compounds and/or composition ranges. See
             potential descriptions for more usage information.
-          </p>
+          </p>&ndash;&gt;
         </div>
 
 
-      </div>
+      </div>-->
     </div>
+
     <Footer></Footer>
   </div>
 
@@ -559,6 +584,7 @@
         data(){
             return {
               elements: {},
+              dialogVisible: false,
               mixtures: {},
               mixturesShow:{},
               search: '',
@@ -576,7 +602,8 @@
         created(){
           this.axios.get('/v1/projects/get_elements_data').then(res=>{
             for(let element in res.data.result_element_data){
-              this.elements[element] = res.data.result_element_data[element]
+              this.$set(this.elements,element,res.data.result_element_data[element])
+              // this.elements[element] =
             }
             console.log(this.elements)
             this.mixtures = res.data.result_alloy
@@ -720,7 +747,7 @@
   .components-list >>> .el-button {
     font-size: 22px;
     height: 50px;
-    padding: 0 10px;
+    padding: 0 20px;
   }
 
   .components-list p {
@@ -871,9 +898,15 @@
   .table-div{
     padding-top: 21px;
   }
+
   .text-img{
     height: 430px;
     margin-top: 20px;
+  }
+
+  .icon-img{
+    height: 20px;
+    vertical-align: middle;
   }
 
   #carousel >>> .el-icon-arrow-right{

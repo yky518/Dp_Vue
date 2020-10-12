@@ -106,7 +106,7 @@
 
             }
             this.$set(this.elementPicker,"formulaString",formulaString)
-            this.$emit('formchange', this.elementPicker.formulaJson, this.elementPicker.formulaString)
+            this.$emit('formchange', this.elementPicker.formulaString)
 
             console.log(this.elementPicker)
           }
@@ -128,7 +128,13 @@
 
           this.elementPicker.formulaJson = formJson
 
+          for(let key in this.elementPicker.formulaJson){
+            this.elementPicker.formulaJson[key] = false
+          }
+
+          console.log(this.elementPicker)
           let formString = this.elementPicker.formulaString.replace(/[^a-zA-Z-]/ig, "")
+          console
           let formulaSplit = formString.split('-')
           for (let item of formulaSplit) {
             if(this.elementsList.indexOf(item)>=0){
@@ -148,9 +154,10 @@
             }
 
           }
+          console.log(formulaString)
 
           this.$set(this.elementPicker,"formulaString",formulaString)
-          this.$emit('formchange', this.elementPicker.formulaJson, this.elementPicker.formulaString)
+          this.$emit('formchange', this.elementPicker.formulaString)
         }
 
       }

@@ -1,5 +1,5 @@
 const style={
-  labelWidth: '0.7rem',
+  labelWidth: '0.90rem',
 
 }
 

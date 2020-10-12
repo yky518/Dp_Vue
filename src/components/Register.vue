@@ -1,6 +1,6 @@
 <template>
   <div id="register">
-      <el-form status-icon :rules="rules" ref="registerForm" :model="registerForm" label-position="left" label-width="1.00rem">
+      <el-form status-icon :rules="rules" ref="registerForm" :model="registerForm" label-position="left" label-width="0.90rem">
       <el-form-item label="Username" prop="name">
         <el-input v-model="registerForm.name"></el-input>
       </el-form-item>
@@ -20,7 +20,7 @@
         <input type="checkbox" class="checkbox" v-model="registerForm.checked">
         Accept the <router-link to="/privacy_policy"><i>user agreemen</i>t</router-link>
       </el-form-item>
-      <div style="text-align: center;">
+      <div style="text-align: center;" class="button-row">
         <el-button round size="small" class="button-submit" @click="submitForm('registerForm')">Submit</el-button>
         <el-button round size="small" class="button-cancel" @click="resetForm('registerForm')">Cancel</el-button>
       </div>
@@ -67,7 +67,7 @@
           }
         };
         var validateEmail = (rule, value, callback) => {
-          let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+          let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
           if (regEmail.test(value)) {
             callback();
           } else {
@@ -239,11 +239,11 @@
   }
 
   #register >>> .el-form-item__error{
-    font-size: 20px;
+    font-size: 16px;
   }
 
   #register>>> .el-form-item{
-    margin: 50px 0;
+    /*margin: 50px 0;*/
   }
 
   .button-submit{
@@ -270,11 +270,18 @@
     width:24px
   }
   .agreement-row{
-    text-align: center;
+    /*text-align: center;*/
+    margin: 0!important;
+
   }
 
   .agreement-row >>> .el-form-item__error{
     position: static;
+    margin-left: 0.90rem;
+  }
+
+  .button-row{
+    margin: 5px 0;
   }
 
 </style>

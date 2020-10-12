@@ -8,7 +8,7 @@ const store = new Vuex.Store({
   state: {
     name: Cookie.get('name')?Cookie.get('name'):'',
     email: '',
-    email_verify: '',
+    email_verify: '',//1为验证过，0未验证
     create_time: ''
   },
   mutations: {

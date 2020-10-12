@@ -48,6 +48,13 @@ const router =  new Router({
       }
     },
     {
+      path: '/help',
+      name: 'Help',
+      component(resolve){
+        require(['@/pages/Help.vue'],resolve)
+      }
+    },
+    {
       path: '/user_projects',
       name: 'UserProjects',
       component(resolve){
@@ -75,6 +82,13 @@ const router =  new Router({
       },
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      }
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component(resolve){
+        require(['@/pages/Contact.vue'],resolve)
       }
     },
     {

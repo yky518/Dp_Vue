@@ -1,7 +1,7 @@
 <template>
   <div id="append_project">
     <div class="header">
-      <Header active="use2"></Header>
+      <Header active="user2"></Header>
     </div>
     <div id="body">
       <el-card>
@@ -12,7 +12,7 @@
           <el-row>
             <el-col :span="22">
               <el-form-item label="Elements" prop="elements">
-                <ElementPicker ref="elementPicker" id="project-picker" @formchange="infoChange(arguments)"></ElementPicker>
+                <ElementPicker ref="elementPicker" id="project-picker" @formchange="infoChange($event)"></ElementPicker>
               </el-form-item>
             </el-col>
           </el-row>
@@ -39,7 +39,8 @@
           <el-row style="text-align: center;">
               <el-button round  class="button-submit" @click="submit('form')">
                 <img src="../assets/images/提交.png" class="icon-img">
-                Submit
+                <span style="vertical-align:middle">Submit</span>
+
               </el-button>
               <el-button round  class="button-cancel" @click="reset('form')">Cancel</el-button>
           </el-row>
@@ -69,7 +70,6 @@
             numbersList: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
             elementAppend: '',
             numberAppend: '',
-            formulaJson: {},
             formulaString: '',
             form: {
               elements: '',
@@ -81,32 +81,11 @@
       },
       methods:{
           infoChange(value){
-            this.formulaJson = value[0]
-            this.formulaString = value[1]
+            this.formulaString = value
 
-          },
-
-          elementCheck(){
-            let string = ''
-            for(let key in this.formulaJson){
-              let tempItem = ''
-              if(parseInt(this.formulaJson[key]) == 1){
-                tempItem = key
-              }else if(parseInt(this.formulaJson[key]) == 0){
-                tempItem = ''
-              }else{
-                tempItem = key + (this.formulaJson[key].length>0?parseInt(this.formulaJson[key]): '')
-              }
-              if(!string){
-                string += tempItem
-              }else {
-                string += tempItem?"-"+tempItem :''
-              }
-            }
-            return string
           },
           submit(formName){
-            let string = this.elementCheck()
+            let string = this.formulaString
             let params = {
               elements: string,
               authors: this.form.authors,
@@ -208,7 +187,7 @@
   }
   #body{
     width: 1400px;
-    margin: 20px auto;
+    margin: 40px auto 20px;
     min-height: 850px;
   }
   #body >>> .el-input__inner{
@@ -242,7 +221,8 @@
   }
 
   .icon-img{
-    height: 22px
+    height: 22px;
+    vertical-align:middle;
   }
   .form-margin{
     margin-top: 30px;

@@ -4,9 +4,9 @@
       <div class="header">
         <Header active="user3"></Header>
       </div>
-      <div class="sub-header">
+<!--      <div class="sub-header">
 
-      </div>
+      </div>-->
       <div >
         <el-card class="card">
           <h2>User Info</h2>
@@ -183,9 +183,9 @@
     }
     .card{
       width: 1400px;
-      margin: -40px auto 240px;
+      margin: 10px auto 240px;
       padding: 10px 20px;
-      border-radius: 10px;
+      /*border-radius: 10px;*/
       >>> .el-form-item{
         .el-form-item__label{
           font: 24px/40px "Microsoft Ya Hei";
