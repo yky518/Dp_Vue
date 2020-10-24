@@ -29,13 +29,14 @@ export default {
   },
   watch:{
     default(n,o){
-
+      console.log(n)
+      this.default = n;
+      this.value = this.default;
     }
   },
-  mounted() {
+  created() {
     this.$nextTick(()=>{
       console.log(this.default)
-      console.log(this.options)
       if(this.default){
         if(this.options.indexOf(this.default)>=0){
           this.value = this.default;
@@ -46,7 +47,6 @@ export default {
         }
       }else{
         this.input = '';
-        console.log(this.input)
       }
     })
 
