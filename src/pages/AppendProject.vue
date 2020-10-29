@@ -3,73 +3,22 @@
     <div class="header">
       <Header active="user2"></Header>
     </div>
-    <div id="body">
-      <el-card>
-        <h2>Add Your Project</h2>
-        <hr style="border:1px dashed #b6afd7;" />
-
-        <el-form ref="form" :model="form" label-position="left"  label-width="0.80rem" class="form-margin">
-          <el-row>
-            <el-col :span="22">
-              <el-form-item label="Elements" prop="elements">
-                <ElementPicker ref="elementPicker" id="project-picker" @formchange="infoChange($event)"></ElementPicker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-row>
-            <el-col :span="10">
-              <el-form-item label="Authors" prop="authors">
-                <el-input v-model="form.authors"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10" :offset="2">
-              <el-form-item label="Keywords" prop="keywords">
-                <el-input v-model="form.keywords"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="22">
-              <el-form-item label="Abstract" prop="abstract">
-                <el-input type="textarea" rows="3" v-model="form.abstract"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row style="text-align: center;">
-              <el-button round  class="button-submit" @click="submit('form')">
-                <img src="../assets/images/提交.png" class="icon-img">
-                <span style="vertical-align:middle">Submit</span>
-
-              </el-button>
-              <el-button round  class="button-cancel" @click="reset('form')">Cancel</el-button>
-          </el-row>
-
-        </el-form>
-      </el-card>
-
-    </div>
+    <AppendPart style="min-height: 850px;"></AppendPart>
     <Footer class="footer"></Footer>
   </div>
 </template>
 
 <script>
-  import ElementPicker from "../components/ElementPicker";
   import Header from "../components/Header";
   import Footer from "../components/Footer";
+  import AppendPart from "../components/AppendPart";
 
     export default {
         name: "AppendProject",
       data(){
 
 
-          let elements = ['H', 'He', 'Li', 'Be']
-          let elementsList = ['H', 'He', 'Li', 'Be']
           return {
-            elementsList: elementsList,
-            numbersList: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-            elementAppend: '',
-            numberAppend: '',
             formulaString: '',
             form: {
               elements: '',
@@ -130,8 +79,8 @@
         }
       },
       components:{
-        ElementPicker,
         Header,
+        AppendPart,
         Footer
       }
     }
@@ -185,48 +134,7 @@
     background: url("../assets/images/详情页头图.png");
     background-size:100% 100%;
   }
-  #body{
-    width: 1400px;
-    margin: 40px auto 20px;
-    min-height: 850px;
-  }
-  #body >>> .el-input__inner{
-    background-color: #f6f6f6;
-  }
 
-
-  #body >>> .el-textarea__inner{
-    background-color: #f6f6f6;
-    resize: none;
-    font-size: 22px;
-  }
-
-  #body >>> .el-form-item__label{
-    font: 24px/40px PingFang SC;
-    font-weight: 500;
-    color: #333333;
-  }
-
-  .button-submit{
-    background-color: #33327e;
-    color: #fff;
-    font: 24px/24px "Microsoft Ya Hei";
-
-  }
-
-  .button-cancel{
-    background-color: #e1e1e1;
-    color: #fff;
-    font: 24px/24px  "Microsoft Ya Hei";
-  }
-
-  .icon-img{
-    height: 22px;
-    vertical-align:middle;
-  }
-  .form-margin{
-    margin-top: 30px;
-  }
   .footer{
 /*    position: fixed;
     bottom: 0;

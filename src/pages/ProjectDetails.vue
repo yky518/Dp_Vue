@@ -23,6 +23,11 @@
                 <p class="subtitle"><strong>Authors: </strong>{{project_info.authors}}</p>
               </el-col>
             </el-row>
+            <el-row type="flex" justify="space-between" gutter="10">
+              <el-col :span="24">
+                <p class="subtitle"><strong>License: </strong>{{license}}</p>
+              </el-col>
+            </el-row>
             <el-row ref="abstract">
               <el-col :span="24">
                 <p class="subtitle">
@@ -50,7 +55,7 @@
                 <el-popover v-if="scope.row.data" placement="bottom-start" width="250" trigger="hover" :content="'File size: '+(scope.row.data_size/1024/1024).toFixed(3)+'M'">
                   <el-button  slot="reference" round   @click="download(scope.row.data)" class="button-primary">
                     <img src="../assets/images/下载.png" class="icon-img">
-                    <span style="vertical-align:middle;">Download</span>
+                    <span style="vertical-align:middle;">Data</span>
                   </el-button>
                 </el-popover>
                 <el-button round v-else class="button-disable" disabled>
@@ -58,7 +63,27 @@
                   <span style="vertical-align:middle;">Unavailable</span>
 
                 </el-button>
-                <el-button round v-if="scope.row.data" class="button-note"  type="warning" v-popover="'model_notes'+scope.$index">
+
+                <el-button round v-if="scope.row.param" class="button-note"
+                           @click="download(scope.row.param)"
+                           type="warning">
+                  <img src="../assets/images/笔记.png" class="icon-img">
+                  <span style="vertical-align:middle;">Params</span>
+                </el-button>
+                <el-button round v-else class="button-disable" disabled>
+                  <img src="../assets/images/下载—无.png" class="icon-img">
+                  <span style="vertical-align:middle;">Unavailable</span>
+
+                </el-button>
+
+                <el-button round v-if="model_note_isfile" class="button-note"
+                           @click="download(scope.row.notes)"
+                           type="warning">
+                  <img src="../assets/images/笔记.png" class="icon-img">
+                  <span style="vertical-align:middle;">Notes</span>
+                </el-button>
+                <el-button round v-else-if="scope.row.data" class="button-note"
+                           type="warning" v-popover="'model_notes'+scope.$index">
                   <img src="../assets/images/笔记.png" class="icon-img">
                   <span style="vertical-align:middle;">Notes</span>
                 </el-button>
@@ -86,14 +111,16 @@
           <img src="../assets/images/下载—无.png" class="icon-img">
           <span style="vertical-align:middle;">Download</span>
         </el-button>
+        <el-button round   @click="download(project_info.input_file)" class="button-primary">
+          <img src="../assets/images/下载.png" class="icon-img">
+          <span style="vertical-align:middle;">Input File</span>
+        </el-button>
 
-<!--        <el-popover v-if="project_info.notes" ref="popover1" placement="bottom-start" width="300" trigger="hover" :content="project_info.notes">
-          <el-button slot="reference" round  class="button-note" >
-            <img src="../assets/images/笔记.png" class="icon-img">
-            <span style="vertical-align:middle;">Notes</span>
-          </el-button>
-        </el-popover>-->
-        <el-button v-if="project_info.notes" round  class="button-note" @click="showNotes=!showNotes">
+        <el-button v-if="isNotesFile" round  class="button-note" @click="download(project_info.notes)">
+          <img src="../assets/images/笔记.png" class="icon-img">
+          <span style="vertical-align:middle;">Notes</span>
+        </el-button>
+        <el-button v-else-if="project_info.notes" round  class="button-note" @click="showNotes=!showNotes">
           <img src="../assets/images/笔记.png" class="icon-img">
           <span style="vertical-align:middle;">Notes</span>
         </el-button>
@@ -108,8 +135,20 @@
           </pre>
 
         </div>
+        <h3>PseudoPotential</h3>
+        <div v-if="isVasp">
+          <p v-for="(item, index) in pseudoList" :key="'vasp' + index">
+            <strong>{{ item.element }}: </strong>{{ item.hash }}
+          </p>
+        </div>
+        <div v-else>
+          <el-button round @click="download(pseudo)" class="button-primary">
+            <img src="../assets/images/下载.png" class="icon-img">
+            <span style="vertical-align:middle;">Download</span>
+          </el-button>
+        </div>
         <el-row>
-          <el-col :span="10"><p>First Submited Time: {{project_info.first_submission_time}}</p></el-col>
+          <el-col :span="10"><p>First Submitted Time: {{project_info.first_submission_time}}</p></el-col>
           <el-col :span="10"><p>Updated Time: {{project_info.update_time}}</p></el-col>
         </el-row>
       </el-card>
@@ -379,6 +418,12 @@
         inject:['reload'],
         data(){
           return {
+            isNotesFile: false,
+            isVasp: false,
+            pseudoList: [],//vasp类型，pseudoList表示MD5 hash的列表
+            pseudo: '', //vasp类型时，pseudo表示文件地址
+            license: "",
+            model_note_isfile: false,
             feedback_main :[],
             feedback_main_show :[],
             feedback_sub: {},
@@ -466,8 +511,47 @@
                 this.feedback_main_show = this.feedback_main
               }
               this.models_info = res.data.models_info
-              this.papers_info = res.data.papers_info
+              let notes =  this.models_info[0].notes
+              console.log(notes)
+              if(/^https/.test(notes)){
+                console.log("https")
+                this.model_note_isfile = true
+              }
               this.project_info = res.data.project_info
+              console.log(this.project_info.license)
+              switch (this.project_info.license){
+                case "1":
+                  this.license = 'Attribution-ShareAlike'
+                  break
+                case "2":
+                  this.license = 'Attribution-NoDerivs'
+                  break
+                case "3":
+                  this.license = 'Attribution-NonCommercial'
+                  break
+                case "4":
+                  this.license = 'Attribution-NonCommercial-ShareAlike'
+                  break
+                case "5":
+                  this.license = 'Attribution-NonCommercial-NoDerivs'
+                  break
+                default:
+                  this.license = ''
+              }
+              console.log(this.license)
+              if(this.project_info.code_type==="vasp"){
+                this.isVasp = true
+                this.pseudoList = JSON.parse(this.project_info.pseudo).elements
+              }else{
+                this.pseudo = JSON.parse(this.project_info.pseudo).url
+              }
+
+              if(/^https:/.test(this.project_info.notes)){
+                this.isNotesFile = true
+              }
+
+              this.papers_info = res.data.papers_info
+
               this.results_info = res.data.results_info
               for(let result of this.results_info){
                 console.log(result.structure)
@@ -837,7 +921,6 @@
                 console.log(tokenData)
                 let signatureUrl = getSignatureUrl(tokenData,object_key)
                 console.log(signatureUrl)
-
                 window.location.href = signatureUrl
               }
 

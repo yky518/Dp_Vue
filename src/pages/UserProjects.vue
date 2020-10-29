@@ -16,6 +16,7 @@
         </el-col>
 
       </el-row>
+      <AppendPart></AppendPart>
       <div class="table-panel">
         <el-table :header-cell-style="{'background-color': '#f3f3fe'}" :data="currentPageData">
           <el-table-column align="center" prop="project_id" label="Project"  min-width="11%"></el-table-column>
@@ -69,6 +70,7 @@
   import Header from "../components/Header";
   import Footer from "../components/Footer";
   import getSignatureUrl from "@/utils/oss.js";
+  import AppendPart from "../components/AppendPart";
     export default {
       name: "UserProjects",
       data(){
@@ -169,7 +171,8 @@
       },
       components: {
         Header,
-        Footer
+        Footer,
+        AppendPart
       }
     }
 </script>

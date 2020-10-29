@@ -10,10 +10,6 @@
           <div class="card">
             <h2>
               Overview
-              <div class="license-button" @click="licenseVisible = true">
-                <img src="../assets/images/License.png" class="icon-img">
-                License
-              </div>
 
             </h2>
             <hr style="border:1px dashed #b6afd7;"/>
@@ -54,6 +50,50 @@
                 </el-col>
               </el-row>
               <el-row>
+                <el-col :span="22" >
+                  <el-form-item prop="license">
+                    <div slot="label">
+                      <img src="../assets/images/License.png" class="icon-img">
+                      License
+                    </div>
+                    <el-collapse accordion>
+                      <el-collapse-item>
+                        <template slot="title">
+                          <el-radio v-model="project_info.license" label="1">Attribution-ShareAlike</el-radio>
+                        </template>
+                        <p> If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+                      </el-collapse-item>
+                      <el-collapse-item>
+                        <template slot="title">
+                          <el-radio v-model="project_info.license" label="2">Attribution-NoDerivs</el-radio>
+                        </template>
+                        <p> If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
+                      </el-collapse-item>
+                      <el-collapse-item>
+                        <template slot="title">
+                          <el-radio v-model="project_info.license" label="3">Attribution-NonCommercial</el-radio>
+                        </template>
+                        <div>You may not use the material for commercial purposes. </div>
+                      </el-collapse-item>
+                      <el-collapse-item>
+                        <template slot="title">
+                          <el-radio v-model="project_info.license" label="4">Attribution-NonCommercial-ShareAlike</el-radio>
+                        </template>
+                        <p>You may not use the material for commercial purposes.</p>
+                        <p>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+                      </el-collapse-item>
+                      <el-collapse-item>
+                        <template slot="title">
+                          <el-radio v-model="project_info.license" label="5">Attribution-NonCommercial-NoDerivs</el-radio>
+                        </template>
+                        <p>You may not use the material for commercial purposes.</p>
+                        <p> If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
+                      </el-collapse-item>
+                    </el-collapse>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="10">
                   <el-form-item label="Updated Time" label-width="1rem">
                     <!--                <el-input v-model="project_info.update_time"></el-input>-->
@@ -61,19 +101,21 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="10" :offset="2">
-                  <el-form-item label="Submited Time" label-width="1rem">
+                  <el-form-item label="Submitted Time" label-width="1rem">
                     <!--                <el-input v-model="project_info.first_submission_time"></el-input>-->
                     {{project_info.first_submission_time}}
                   </el-form-item>
                 </el-col>
               </el-row>
+
+
               <el-row style="text-align: center;">
                 <el-button class="button-share"  round @click="changeAvilable()"
                 :style="{'background-color':project_info.available==0?'#33327e':'#e47a00'}">
                   <img src="../assets/images/共享.png" class="icon-img">
                   <span style="vertical-align:middle">{{ project_info.available==0?'Go Private' : 'Go Public' }}</span>
                 </el-button>
-                <el-button class="button-cancel"  round @click="reload"><span class="cancel-text">Cancel</span></el-button>
+                <el-button class="button-cancel"  round @click="reload"><span class="cancel-text">Reset</span></el-button>
                 <el-button class="button-delete" round @click="projectDelete({ type: 'projects'})">
                   <img src="../assets/images/删除.png" class="icon-img">
                     <span style="vertical-align:middle">Delete</span>
@@ -94,7 +136,7 @@
             <el-form ref="model_add" :rules="rules1" :model="model_add" :label-width="labelWidth" class="form-margin">
               <el-row>
                 <el-col :span="12">
-                  <el-form-item label="Version" prop="version">
+                  <el-form-item label="Deepmd-kit Version" prop="version">
                     <MySelect :default="model_add.version" :options="modelOptions" @success="modelVersionSelect($event,model_add)"></MySelect>
                   </el-form-item>
                 </el-col>
@@ -127,14 +169,12 @@
               <el-row>
                 <el-col :span="22">
                   <el-form-item prop="param">
-
                     <div slot="label">
-                      Parameter
+                      Input Files
                       <i class="el-icon-question" style="vertical-align: top;" @click="modelParamVisible = true">
 
                       </i>
                     </div>
-
                     <el-select v-model="model_add.param_type" multiple clearable filterable allow-create style="width: 60%">
                       <el-option value="input.json"></el-option>
                       <el-option value="lcurve.out"></el-option>
@@ -157,14 +197,11 @@
                   <el-form-item label="Notes">
                     <div slot="label">
                       Notes
-                      <i class="el-icon-question" style="vertical-align: top;" @click="modelNotesVisible = true">
-
-                      </i>
+                      <i class="el-icon-question" style="vertical-align: top;" @click="modelNotesVisible = true"></i>
                     </div>
 
                     <FileUpload :disabled="!model_add.version" upload_id="model_add_notes" text="Browse" @upload="fileUploadNotes($event,model_add)"></FileUpload>
-                    Upload notes file for parameters
-
+                    Upload DP-Generator (dpgen) parameter files.
                     <el-input v-model="model_add.notes" clearable></el-input>
                   </el-form-item>
                 </el-col>
@@ -383,14 +420,6 @@ Upload notes file for parameters
                 <el-col :span="14">
                   <el-form-item label="Code Type" prop="code">
                     <MySelect :options="rawOptions"  :default="project_info.code_type" @success="codeSelect($event)"></MySelect>
-    <!--                <el-select v-model="project_info.code_type"  filterable allow-create>
-                      <el-option value="deepmd"></el-option>
-                      <el-option value="vasp"></el-option>
-                      <el-option value="others"></el-option>
-                      &lt;!&ndash;                      <el-option value="meam"></el-option>&ndash;&gt;
-
-                    </el-select>-->
-                    <!--                    <el-input v-model="result_add.models" placeholder="deepmd"></el-input>-->
                   </el-form-item>
                 </el-col>
 
@@ -398,7 +427,7 @@ Upload notes file for parameters
 
               <el-row>
                 <el-col :span="22">
-                  <el-form-item label="Parameter file" prop="input_type">
+                  <el-form-item label="Parameter File" prop="input_type">
                       <el-select v-model="project_info.input_type">
                         <el-option  value="INCAR"></el-option>
                         <el-option  value="input"></el-option>
@@ -413,7 +442,7 @@ Upload notes file for parameters
               </el-row>
 
               <el-row>
-                <el-col :span="12">
+                <el-col :span="22">
                   <el-form-item prop="code">
                     <div slot="label">
                       PseudoPotential
@@ -421,9 +450,17 @@ Upload notes file for parameters
 
                       </i>
                     </div>
-                    <FileUpload upload_id="pseudoFile" text="Upload"
-                                @upload="pseudoUpload($event)"></FileUpload>
-                    <el-input  v-model="project_info.psuedo" clearable></el-input>
+                    <div v-if="isVasp">
+                      <div v-for="(item, index) in pseudoList">
+                         <el-input style="display: inline-block" :placeholder="item.element+'-'" :key="'vasp' + index" v-model="item.hash"></el-input>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <FileUpload  upload_id="pseudoFile" text="Upload"
+                                  @upload="pseudoUpload($event)"></FileUpload>
+                      <el-input  v-model="pseudo" clearable></el-input>
+                    </div>
+
                   </el-form-item>
                 </el-col>
                 <el-col :span="11">
@@ -953,14 +990,13 @@ init.000/
 │   ├── force.npy
 │   └── virial.npy
 ├── type_map.raw
-└── type.raw`</pre>
+└── type.raw</pre>
       </el-dialog>
 
       <el-dialog title="Pseudopotential file" :visible.sync="pseudoVisible" width="40%">
-        <p>If you generated the raw data by cp2k or Quantum Espresso, please upload the PseudoPotential file directly.
-          If you generated the raw data by VASP, please upload the MD5 hash function of your POTCAR file. You can create it by:
-          $ md5sum POTCAR_1 POTCAR_2 … POTCAR_N > hash.md
-          Then you can upload the hash.md file.
+        <p>
+          If you generated the raw data by cp2k or Quantum Espresso, please upload the PseudoPotential file directly.
+          If you generated the raw data by VASP, please fill in the MD5 hash function of your POTCAR file. You can create it by: $ md5sum POTCAR_1 POTCAR_2 … POTCAR_N > hash.md Then you can fill in the content of the hash.md file.
         </p>
       </el-dialog>
       <el-dialog title="Raw data notes" :visible.sync="rawNotesVisible" width="40%">
@@ -969,14 +1005,18 @@ init.000/
           to upload the parameter files here.
         </p>
       </el-dialog>
-      <el-dialog title="parameter example" :visible.sync="modelParamVisible" width="40%">
-      <p style="line-height: 20px">check.point<br>
-input.json<br>
-lcurve.out<br>
-model.ckpt.data-00000-of-00001<br>
-model.ckpt.index<br>
-model.ckpt.meta<br>
-You can package all the files and upload them together</p>
+      <el-dialog title="Input Files Example" :visible.sync="modelParamVisible" width="40%">
+        <ul>
+          <li>*Input parameter: input.json</li>
+          <li>*Checkpoint (from previous deepmd-kit train) :</li>
+          <p style="line-height: 20px">
+            model.ckpt.data-*<br>
+            model.ckpt.index<br>
+            model.ckpt.meta
+          </p>
+          <li>Output file: lcurve.out</li>
+        </ul>
+        <p style="line-height: 20px">You can package all the files and upload them together.</p>
       </el-dialog>
 
       <el-dialog title="Model" :visible.sync="modelDialogVisible" width="40%">
@@ -987,50 +1027,9 @@ If you have more than one model, please the upload the zip file.</p>
 
       <el-dialog title="Notes" :visible.sync="modelNotesVisible" width="40%">
         <p style="line-height: 20px">
-          You may describe how you generated the raw data.
-          If you did any ab initio molecular dynamics simulations or other simulations
-          when preparing the initial learning data,
-          we encourage you to upload the parameter files here.
+          You may describe how you generated the model here. If you employed DP-Generator (dpgen), we encourage you to upload the parameter files of dpgen here.
         </p>
       </el-dialog>
-
-      <el-dialog title="License" :visible.sync="licenseVisible" width="40%">
-        <el-collapse accordion>
-          <el-collapse-item>
-            <template slot="title">
-              <el-radio v-model="project_info.license" label="1">Attribution-ShareAlike</el-radio>
-            </template>
-            <p> If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
-          </el-collapse-item>
-          <el-collapse-item>
-            <template slot="title">
-              <el-radio v-model="project_info.license" label="2">Attribution-NoDerivs</el-radio>
-            </template>
-            <p> If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
-          </el-collapse-item>
-          <el-collapse-item>
-            <template slot="title">
-              <el-radio v-model="project_info.license" label="3">Attribution-NonCommercial</el-radio>
-            </template>
-            <div>You may not use the material for commercial purposes. </div>
-          </el-collapse-item>
-          <el-collapse-item>
-            <template slot="title">
-              <el-radio v-model="project_info.license" label="4">Attribution-NonCommercial-ShareAlike</el-radio>
-            </template>
-            <p>You may not use the material for commercial purposes.</p>
-            <p>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
-          </el-collapse-item>
-          <el-collapse-item>
-            <template slot="title">
-              <el-radio v-model="project_info.license" label="5">Attribution-NonCommercial-NoDerivs</el-radio>
-            </template>
-            <p>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
-            <p> If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
-          </el-collapse-item>
-        </el-collapse>
-      </el-dialog>
-
     </div>
 
 
@@ -1055,12 +1054,16 @@ If you have more than one model, please the upload the zip file.</p>
       inject:['reload'],
       data(){
         return {
+          pseudo: '',
+          pseudoList: [],
           activePapers: [],
+          isVasp: false,
+          elementCount: 0,
           activeResults: [],
           showAddModel: false,
           showAddPaper: false,
           showAddResult: false,
-          pseudo:[],
+
           license:{
             radio1: false,
             radio2: false,
@@ -1207,9 +1210,11 @@ If you have more than one model, please the upload the zip file.</p>
           console.log(value);
           let input_type = ''
           this.project_info.code_type = value;
+          this.isVasp = false
           switch(value){
             case 'vasp':
               input_type = 'INCAR';
+              this.isVasp = true
               break;
             case 'cp2k':
               input_type = 'input';
@@ -1230,8 +1235,17 @@ If you have more than one model, please the upload the zip file.</p>
             window.open('https://github.com/deepmodeling/dpgen/wiki');
         },
         projectSubmit(){
+          if(this.isVasp){
+            this.project_info.pseudo = JSON.stringify({
+              elements: this.pseudoList
+            })
+          }else{
+            this.project_info.pseudo = JSON.stringify({
+              url: this.pseudo
+            });
+          }
           console.log(this.project_info)
-          this.project_info.pseudo = JSON.stringify(this.pseudo);
+
           this.axios.post('/v1/user/update_project', this.project_info).then(res=>{
             console.log(res.data)
             this.showMessage('Success',"project")
@@ -1495,8 +1509,8 @@ If you have more than one model, please the upload the zip file.</p>
                 accessKeyId: result.AccessKeyId,
                 accessKeySecret: result.AccessKeySecret,
                 stsToken: result.SecurityToken,
-                endpoint: 'oss-cn-shenzhen.aliyuncs.com',
-                bucket: 'dpcloudserver',
+                endpoint: 'oss-cn-beijing.aliyuncs.com',
+                bucket: 'deeplibrary0'
 
               });
 
@@ -1549,8 +1563,8 @@ If you have more than one model, please the upload the zip file.</p>
                 accessKeyId: result.AccessKeyId,
                 accessKeySecret: result.AccessKeySecret,
                 stsToken: result.SecurityToken,
-                endpoint: 'oss-cn-shenzhen.aliyuncs.com',
-                bucket: 'dpcloudserver',
+                endpoint: 'oss-cn-beijing.aliyuncs.com',
+                bucket: 'deeplibrary0'
 
               });
 
@@ -1603,8 +1617,8 @@ If you have more than one model, please the upload the zip file.</p>
                 accessKeyId: result.AccessKeyId,
                 accessKeySecret: result.AccessKeySecret,
                 stsToken: result.SecurityToken,
-                endpoint: 'oss-cn-shenzhen.aliyuncs.com',
-                bucket: 'dpcloudserver',
+                endpoint: 'oss-cn-beijing.aliyuncs.com',
+                bucket: 'deeplibrary0'
 
               });
 
@@ -1625,7 +1639,9 @@ If you have more than one model, please the upload the zip file.</p>
                 },
               };
               client.put(storeAs, file, options).then(result => {
-                this.$set(this.project_info,'psuedo',"https://deeplibrary0.oss-cn-beijing.aliyuncs.com/" + storeAs)
+                // this.$set(this,'psuedo',"https://deeplibrary0.oss-cn-beijing.aliyuncs.com/" + storeAs)
+                console.log("https://deeplibrary0.oss-cn-beijing.aliyuncs.com/" + storeAs)
+                this.pseudo = "https://deeplibrary0.oss-cn-beijing.aliyuncs.com/" + storeAs
               }).catch(err => {
                 console.log(err);
               })
@@ -1662,9 +1678,8 @@ If you have more than one model, please the upload the zip file.</p>
                 accessKeyId: result.AccessKeyId,
                 accessKeySecret: result.AccessKeySecret,
                 stsToken: result.SecurityToken,
-                endpoint: 'oss-cn-shenzhen.aliyuncs.com',
-                bucket: 'dpcloudserver',
-
+                endpoint: 'oss-cn-beijing.aliyuncs.com',
+                bucket: 'deeplibrary0'
               });
 
               const options = {
@@ -1746,8 +1761,8 @@ If you have more than one model, please the upload the zip file.</p>
                   accessKeyId: result.AccessKeyId,
                   accessKeySecret: result.AccessKeySecret,
                   stsToken: result.SecurityToken,
-                  endpoint: 'oss-cn-shenzhen.aliyuncs.com',
-                  bucket: 'dpcloudserver',
+                  endpoint: 'oss-cn-beijing.aliyuncs.com',
+                  bucket: 'deeplibrary0'
 
                 });
 
@@ -1792,8 +1807,7 @@ If you have more than one model, please the upload the zip file.</p>
 
             let reg = new RegExp(pattern)
             console.log(reg)
-            console.log(/INCAR$/.test('INCAR'))
-            if(!reg.test(file.name)){
+            if(0){
               this.$alert('Your input file should consist of the type you choose!', '', {
                 confirmButtonText: 'OK',
                 showClose: true,
@@ -1818,8 +1832,8 @@ If you have more than one model, please the upload the zip file.</p>
               accessKeyId: result.AccessKeyId,
               accessKeySecret: result.AccessKeySecret,
               stsToken: result.SecurityToken,
-              endpoint: 'oss-cn-shenzhen.aliyuncs.com',
-              bucket: 'dpcloudserver',
+              endpoint: 'oss-cn-beijing.aliyuncs.com',
+              bucket: 'deeplibrary0'
 
             });
 
@@ -2261,18 +2275,36 @@ If you have more than one model, please the upload the zip file.</p>
             if(data.models_info.length){
               this.model_add = data.models_info[0]
             }
-            console.log(data.models_info[0])
-            console.log(this.model_add)
 
             for(let model of data.models_info){
               this.$set(model,"param_type",JSON.parse(model.param_type))
             }
             this.papers_info = data.papers_info
             this.results_info = data.results_info
-            if(this.project_info.pseudo){
-              this.pseudo = JSON.parse(this.project_info.pseudo)
-            }
+            //vasp
+            let elements = this.project_info.elements.split('-')
+            this.elementCount = elements.length
+            console.log(elements)
+            console.log(this.elementCount)
+            if(this.project_info.code_type === "vasp"){
+              this.isVasp = true
+              if(this.project_info.pseudo.elements){
+                this.pseudoList = JSON.parse(this.project_info.pseudo.elements)
+              }else{
+                for(let element of elements){
+                  this.pseudoList = []
+                  this.pseudoList.push({
+                    element,
+                    hash: ''
+                  })
+                }
+              }
 
+            }else{
+              if(this.project_info.pseudo){
+                this.pseudo = JSON.parse(this.project_info.pseudo).url
+              }
+            }
             for(let i=0;i<data.results_info.length;i++){
               this.result_update_progress.push(false)
               this.result_update_button.push(true)
@@ -2282,8 +2314,6 @@ If you have more than one model, please the upload the zip file.</p>
               this.model_update_button.push(true)
             }
             this.formulaString = data.project_info.elements
-
-
 
             if(this.$store.state.email_verify==0){
               console.log(this.$store.state.email_verify)

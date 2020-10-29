@@ -2,12 +2,12 @@
   <div class="footer">
     <div class="footer-center">
       <el-row>
-        <el-col :span="3">
+<!--        <el-col :span="3">
           <h2>Partners</h2>
           <p>
             <el-link class="footer-text">Review</el-link>
           </p>
-        </el-col>
+        </el-col>-->
         <el-col :span="3">
           <h2>Tools</h2>
           <p><el-link class="footer-text" @click="to('https://github.com/deepmodeling/deepmd-kit')">DeePMD-kit</el-link></p>

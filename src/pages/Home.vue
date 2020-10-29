@@ -9,7 +9,10 @@
 
           <el-carousel-item class="carousel-item">
             <el-row>
-              <el-col :span="24">
+              <el-col :span="8">
+                <img class="text-img" src="../assets/images/首页插图.png">
+              </el-col>
+              <el-col :span="16">
                 <h2>Overview</h2>
                 <p>
                   Machine learning-based methods are changing the way people use to develop interatomic
@@ -32,13 +35,13 @@
               <!--          </el-col>-->
             </el-row>
           </el-carousel-item>
-          <el-carousel-item class="carousel-item">
+<!--          <el-carousel-item class="carousel-item">
             <el-row>
               <el-col :span="8">
                 <img class="text-img" src="../assets/images/首页插图.png">
               </el-col>
             </el-row>
-          </el-carousel-item>
+          </el-carousel-item>-->
         </el-carousel>
 
 
@@ -58,7 +61,7 @@
         <h3>Contribute</h3>
         <span slot="footer" class="dialog-footer">
           <el-button @click="$router.push('/append_project')">Add your project</el-button>
-          <el-button @click="$router.push('/help')">Contact</el-button>
+          <el-button @click="$router.push('/help')">Contact Us</el-button>
         </span>
       </div>
 
@@ -70,7 +73,7 @@
           <div style="">
             <el-button size="mini" style="background-color: #fda72e;border-radius: 6px" @click.native="dialogVisible = true">
               <img src="../assets/images/下载.png" class="icon-img">
-              <span style="vertical-align:middle;color:#fff;">Download</span>
+              <span style="vertical-align:middle;color:#fff;">Contribute</span>
             </el-button>
 
             <el-input v-model="search" placeholder="Na-O" class="search-input" @input="searchChange"></el-input>
