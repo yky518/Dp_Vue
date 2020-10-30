@@ -54,24 +54,10 @@
                 <el-popover :ref="'model_notes'+scope.$index" placement="bottom-start" width="300" trigger="hover" :content="scope.row.notes"></el-popover>
                 <el-popover v-if="scope.row.data" placement="bottom-start" width="250" trigger="hover" :content="'File size: '+(scope.row.data_size/1024/1024).toFixed(3)+'M'">
                   <el-button  slot="reference" round   @click="download(scope.row.data)" class="button-primary">
-                    <img src="../assets/images/下载.png" class="icon-img">
                     <span style="vertical-align:middle;">Data</span>
                   </el-button>
                 </el-popover>
                 <el-button round v-else class="button-disable" disabled>
-                  <img src="../assets/images/下载—无.png" class="icon-img">
-                  <span style="vertical-align:middle;">Unavailable</span>
-
-                </el-button>
-
-                <el-button round v-if="scope.row.param" class="button-note"
-                           @click="download(scope.row.param)"
-                           type="warning">
-                  <img src="../assets/images/笔记.png" class="icon-img">
-                  <span style="vertical-align:middle;">Params</span>
-                </el-button>
-                <el-button round v-else class="button-disable" disabled>
-                  <img src="../assets/images/下载—无.png" class="icon-img">
                   <span style="vertical-align:middle;">Unavailable</span>
 
                 </el-button>
@@ -79,17 +65,23 @@
                 <el-button round v-if="model_note_isfile" class="button-note"
                            @click="download(scope.row.notes)"
                            type="warning">
-                  <img src="../assets/images/笔记.png" class="icon-img">
                   <span style="vertical-align:middle;">Notes</span>
                 </el-button>
                 <el-button round v-else-if="scope.row.data" class="button-note"
                            type="warning" v-popover="'model_notes'+scope.$index">
-                  <img src="../assets/images/笔记.png" class="icon-img">
                   <span style="vertical-align:middle;">Notes</span>
                 </el-button>
                 <el-button round v-else class="button-note-disable"  v-popover="'model_notes'+scope.$index">
-                  <img src="../assets/images/笔记-无.png" class="icon-img">
                   <span style="vertical-align:middle;">Notes</span>
+                </el-button>
+
+                <el-button round v-if="scope.row.param" class="button-note"
+                           @click="download(scope.row.param)"
+                           type="warning">
+                  <span style="vertical-align:middle;">Input Files</span>
+                </el-button>
+                <el-button round v-else class="button-disable" disabled>
+                  <span style="vertical-align:middle;">Unavailable</span>
                 </el-button>
 
               </template>
@@ -103,50 +95,48 @@
         <h3><strong>Raw Data</strong></h3>
         <el-popover v-if="project_info.data" placement="bottom-start" width="250" trigger="hover" :content="'File size: '+(project_info.data_size/1024/1024).toFixed(2)+'M'">
           <el-button  slot="reference" round   @click="download(project_info.data)" class="button-primary">
-            <img src="../assets/images/下载.png" class="icon-img">
             <span style="vertical-align:middle;">Download</span>
           </el-button>
         </el-popover>
         <el-button round v-else class="button-disable" disabled>
-          <img src="../assets/images/下载—无.png" class="icon-img">
           <span style="vertical-align:middle;">Download</span>
         </el-button>
         <el-button round   @click="download(project_info.input_file)" class="button-primary">
-          <img src="../assets/images/下载.png" class="icon-img">
           <span style="vertical-align:middle;">Input File</span>
         </el-button>
 
         <el-button v-if="isNotesFile" round  class="button-note" @click="download(project_info.notes)">
-          <img src="../assets/images/笔记.png" class="icon-img">
-          <span style="vertical-align:middle;">Notes</span>
+          <span style="vertical-align:middle;">Parameter File</span>
         </el-button>
         <el-button v-else-if="project_info.notes" round  class="button-note" @click="showNotes=!showNotes">
-          <img src="../assets/images/笔记.png" class="icon-img">
-          <span style="vertical-align:middle;">Notes</span>
+          <span style="vertical-align:middle;">Parameter File</span>
         </el-button>
         <el-button round v-else class="button-note-disable" disabled>
-          <img src="../assets/images/笔记.png" class="icon-img">
-          <span style="vertical-align:middle;">Notes</span>
+          <span style="vertical-align:middle;">Parameter File</span>
         </el-button>
         <div v-if="showNotes" class="notes-panel">
           <pre class="notes-text">
 <b>Notes:</b>
 {{project_info.notes}}
           </pre>
+          <h3>PseudoPotential</h3>
+          <div v-if="isVasp">
+            <el-button round @click="showPseudo = !showPseudo" class="button-primary">
+              <span style="vertical-align:middle;">PsuedoPotential</span>
+            </el-button>
+          </div>
+          <div v-else>
+            <el-button round @click="download(pseudo)" class="button-primary">
+              <span style="vertical-align:middle;">PsuedoPotential</span>
+            </el-button>
+          </div>
+          <div v-if="showPseudo">
+            <p v-for="(item, index) in pseudoList" :key="'vasp' + index">
+              <strong>{{ item.element }}: </strong>{{ item.hash }}
+            </p>
+          </div>
+        </div>
 
-        </div>
-        <h3>PseudoPotential</h3>
-        <div v-if="isVasp">
-          <p v-for="(item, index) in pseudoList" :key="'vasp' + index">
-            <strong>{{ item.element }}: </strong>{{ item.hash }}
-          </p>
-        </div>
-        <div v-else>
-          <el-button round @click="download(pseudo)" class="button-primary">
-            <img src="../assets/images/下载.png" class="icon-img">
-            <span style="vertical-align:middle;">Download</span>
-          </el-button>
-        </div>
         <el-row>
           <el-col :span="10"><p>First Submitted Time: {{project_info.first_submission_time}}</p></el-col>
           <el-col :span="10"><p>Updated Time: {{project_info.update_time}}</p></el-col>
@@ -418,6 +408,7 @@
         inject:['reload'],
         data(){
           return {
+            showPseudo: false,
             isNotesFile: false,
             isVasp: false,
             pseudoList: [],//vasp类型，pseudoList表示MD5 hash的列表

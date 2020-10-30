@@ -172,7 +172,6 @@
               <td class="element empty"><br></td>
               <td class="element empty"><br></td>
               <td class="element post-transition"><div id="Al" class="symbol_element" :style="{'cursor':elements['Al']?'pointer':'not-allowed'}">
-                {{elements['Al']}}
                 <ElementCell :content="elements['Al']" :haveProjects="elements['Al']" index="13" title="Al" @click.native="elementClick('Al')"></ElementCell>
               </div></td>
               <td class="element metalloid"><div id="Si" class="symbol_element" :style="{'cursor':elements['Si']?'pointer':'not-allowed'}">

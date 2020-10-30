@@ -446,9 +446,7 @@ Upload notes file for parameters
                   <el-form-item prop="code">
                     <div slot="label">
                       PseudoPotential
-                      <i class="el-icon-question" style="vertical-align: top;" @click="pseudoVisible = true">
-
-                      </i>
+                      <i class="el-icon-question" style="vertical-align: top;" @click="pseudoVisible = true"></i>
                     </div>
                     <div v-if="isVasp">
                       <div v-for="(item, index) in pseudoList">
@@ -1225,7 +1223,6 @@ If you have more than one model, please the upload the zip file.</p>
             default:
               input_type = 'none';
           }
-
           this.$set(this.project_info,'input_type',input_type);
         },
         modelVersionSelect(value,model){
@@ -2301,6 +2298,14 @@ If you have more than one model, please the upload the zip file.</p>
               }
 
             }else{
+              for(let element of elements){
+                this.pseudoList = []
+                this.pseudoList.push({
+                  element,
+                  hash: ''
+                })
+              }
+              console.log(this.pseudoList)
               if(this.project_info.pseudo){
                 this.pseudo = JSON.parse(this.project_info.pseudo).url
               }
