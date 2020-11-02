@@ -62,6 +62,15 @@
 
                 </el-button>
 
+                <el-button round v-if="scope.row.param" class="button-input"
+                           @click="download(scope.row.param)"
+                           type="warning">
+                  <span style="vertical-align:middle;">Input Files</span>
+                </el-button>
+                <el-button round v-else class="button-disable" disabled>
+                  <span style="vertical-align:middle;">Unavailable</span>
+                </el-button>
+
                 <el-button round v-if="model_note_isfile" class="button-note"
                            @click="download(scope.row.notes)"
                            type="warning">
@@ -73,15 +82,6 @@
                 </el-button>
                 <el-button round v-else class="button-note-disable"  v-popover="'model_notes'+scope.$index">
                   <span style="vertical-align:middle;">Notes</span>
-                </el-button>
-
-                <el-button round v-if="scope.row.param" class="button-note"
-                           @click="download(scope.row.param)"
-                           type="warning">
-                  <span style="vertical-align:middle;">Input Files</span>
-                </el-button>
-                <el-button round v-else class="button-disable" disabled>
-                  <span style="vertical-align:middle;">Unavailable</span>
                 </el-button>
 
               </template>
@@ -101,10 +101,10 @@
         <el-button round v-else class="button-disable" disabled>
           <span style="vertical-align:middle;">Download</span>
         </el-button>
-        <el-button round   @click="download(project_info.input_file)" class="button-primary">
+
+        <el-button round   @click="download(project_info.input_file)" class="button-input">
           <span style="vertical-align:middle;">Input File</span>
         </el-button>
-
         <el-button v-if="isNotesFile" round  class="button-note" @click="download(project_info.notes)">
           <span style="vertical-align:middle;">Parameter File</span>
         </el-button>
@@ -119,22 +119,23 @@
 <b>Notes:</b>
 {{project_info.notes}}
           </pre>
-          <h3>PseudoPotential</h3>
-          <div v-if="isVasp">
-            <el-button round @click="showPseudo = !showPseudo" class="button-primary">
-              <span style="vertical-align:middle;">PsuedoPotential</span>
-            </el-button>
-          </div>
-          <div v-else>
-            <el-button round @click="download(pseudo)" class="button-primary">
-              <span style="vertical-align:middle;">PsuedoPotential</span>
-            </el-button>
-          </div>
-          <div v-if="showPseudo">
-            <p v-for="(item, index) in pseudoList" :key="'vasp' + index">
-              <strong>{{ item.element }}: </strong>{{ item.hash }}
-            </p>
-          </div>
+
+        </div>
+        <h3>PseudoPotential</h3>
+        <div v-if="isVasp">
+          <el-button round @click="showPseudo = !showPseudo" class="button-primary">
+            <span style="vertical-align:middle;">PsuedoPotential</span>
+          </el-button>
+        </div>
+        <div v-else>
+          <el-button round @click="download(pseudo)" class="button-primary">
+            <span style="vertical-align:middle;">PsuedoPotential</span>
+          </el-button>
+        </div>
+        <div v-if="showPseudo">
+          <p v-for="(item, index) in pseudoList" :key="'vasp' + index">
+            <strong>{{ item.element }}: </strong>{{ item.hash }}
+          </p>
         </div>
 
         <el-row>
@@ -1629,6 +1630,12 @@
 
   .button-primary{
     background-color: #33327e;
+    border: 0;
+    color: #fff;
+  }
+
+  .button-input{
+    background-color: #3955af;
     border: 0;
     color: #fff;
   }

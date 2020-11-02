@@ -29,11 +29,11 @@
               </div>
 
             </el-form>
-            <hr style="height:1px;border:none;border-top:1px solid #bdbddb;">
+<!--            <hr style="height:1px;border:none;border-top:1px solid #bdbddb;">
             <div style="display: flex;justify-content: flex-end;">
-<!--              <span class="third-party">Thrid Party Login</span>-->
+&lt;!&ndash;              <span class="third-party">Thrid Party Login</span>&ndash;&gt;
               <el-avatar :src="require('../assets/images/github.jpg')" class="third-avatar"></el-avatar>
-            </div>
+            </div>-->
 
           </el-tab-pane>
           <el-tab-pane label="Register">
