@@ -311,7 +311,7 @@
               </div></td>
               <td class="element star">*<br></td>
               <td class="element transition"><div id="Hf" class="symbol_element" :style="{'cursor':elements['Hf']?'pointer':'not-allowed'}">
-                <ElementCell :content="elements['Hf']" :haveProjects="elements['Hf']" index="72" title="Hf"  @click.native="elementClick('Nf')"></ElementCell>
+                <ElementCell :content="elements['Hf']" :haveProjects="elements['Hf']" index="72" title="Hf"  @click.native="elementClick('Hf')"></ElementCell>
               </div></td>
               <td class="element transition"><div id="Ta" class="symbol_element" :style="{'cursor':elements['Ta']?'pointer':'not-allowed'}">
                 <ElementCell :content="elements['Ta']" :haveProjects="elements['Ta']" index="73" title="Ta"  @click.native="elementClick('Ta')"></ElementCell>

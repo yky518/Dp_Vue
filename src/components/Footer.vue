@@ -17,6 +17,7 @@
         <el-col :span="3">
           <h2>Links</h2>
           <p><el-link class="footer-text" @click="$router.push('privacy_policy')">Privacy Policy</el-link></p>
+          <p><el-link class="footer-text" @click="$router.push('aboutus')">About Us</el-link></p>
           <p><el-link class="footer-text" @click="$router.push('help')">Help</el-link></p>
           <p><el-link class="footer-text" @click="$router.push('contact')">Contact Us</el-link></p>
 
@@ -30,6 +31,7 @@
           <img src="../assets/images/logo_foot.png"  class="footer-img">
         </el-col>
       </el-row>
+      <p style="text-align: center;color: #8c939d;font-size: 12px;font-family: 'Avenir', Helvetica, Arial, sans-serif">&copy;Copyright2018-2020&nbsp;<strong>DP Potential</strong>. All Rights Reserved</p>
     </div>
   </div>
 </template>

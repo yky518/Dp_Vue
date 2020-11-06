@@ -1,6 +1,6 @@
 <template>
   <div id="register">
-      <el-form status-icon :rules="rules" ref="registerForm" :model="registerForm" label-position="left" label-width="0.90rem">
+      <el-form status-icon :rules="rules" ref="registerForm" :model="registerForm" label-position="left" label-width="160px">
       <el-form-item label="Username" prop="name">
         <el-input v-model="registerForm.name"></el-input>
       </el-form-item>
@@ -14,7 +14,7 @@
           <el-input v-model="registerForm.email" autocomplete="off"></el-input>
         </el-form-item>
       <el-form-item  label="Verification" prop="slide" class="verify-row">
-        <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'1.82rem',height:'0.24rem'}"></Verify>
+        <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'350px',height:'40px'}"></Verify>
       </el-form-item>
       <el-form-item prop="checked"  class="agreement-row" label-width="0">
         <input type="checkbox" class="checkbox" v-model="registerForm.checked">
@@ -218,32 +218,32 @@
 <style scoped>
   #register >>> .el-input__inner{
     background-color: #f6f6f6;
-    border-radius: 10px;
-    height: 50px;
+    border-radius: 10PX;
+    height: 50PX;
   }
 
   #register >>> .el-input{
-    width: 350px;
-    font-size: 24px;
+    width: 350PX;
+    font-size: 18PX;
   }
 
   #register >>> .el-form-item__label{
     font-weight: 400;
     color: #333333;
-    font: 24px/50px "PingFang SC";
+    font: 18PX/40PX "PingFang SC";
     /*text-align: right;*/
   }
 
   #register >>> .el-form-item__content{
-    font-size: 24px;
+    font-size: 18PX;
   }
 
   #register >>> .el-form-item__error{
-    font-size: 16px;
+    font-size: 16PX;
   }
 
   #register>>> .el-form-item{
-    /*margin: 50px 0;*/
+    /*margin: 50PX 0;*/
   }
 
   .button-submit{
@@ -257,7 +257,7 @@
   }
 
   .form-item{
-    margin-top: 50px;
+    margin-top: 20PX;
   }
 
   .verify-row >>> .verify-bar-area{
@@ -266,8 +266,8 @@
   }
 
   .checkbox{
-    height: 24px;
-    width:24px
+    height: 18PX;
+    width:18PX
   }
   .agreement-row{
     /*text-align: center;*/
@@ -281,7 +281,7 @@
   }
 
   .button-row{
-    margin: 5px 0;
+    margin: 5PX 0;
   }
 
 </style>

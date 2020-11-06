@@ -49,15 +49,12 @@
                 <h3>Click elements</h3>
                 <p>Users can click elements in the <el-link @click="router.push('/home')">home page</el-link>, or input the elements list to browser the corresponding projects.</p>
                 <img src="../assets/images/help-home1.jpg" class="img">
-                <h3>Click mixtures</h3>
-                <p>Users can click maxtures shown in "Alloys, Compounds, and Mixtures" part of the <el-link @click="router.push('/home')">home page</el-link> to browser the related projects.</p>
-                <img src="../assets/images/help-home2.jpg" class="img">
                 <h3>
                   Projects list
                 </h3>
                 <p>Users can browse the basic information of the project from the
                   <el-link @click="router.push('/elements_list')">projects page</el-link>, and filter the <el-link @click="router.push('/elements_list')">projects page</el-link> by various conditions.</p>
-                <img src="../assets/images/projects_list.jpg" class="img">
+                <img src="../assets/images/projects_list.png" class="img">
 
               </div>
 
@@ -71,7 +68,7 @@
                   registered email address. You must click the activation email to complete the registration
                   process. After logging in, you can access the data in the library and upload your own
                   project.</p>
-                <img src="../assets/images/help-register.jpg" class="img">
+                <img src="../assets/images/help-register.png" class="img">
               </div>
 
               <div id="details">
@@ -80,29 +77,33 @@
                   <el-link @click="router.push('/project_details')"><span style="font-size: 14px;">details page</span></el-link>
                 </h3>
                 <p>Users can click a project on the project page to enter the details page of the project.</p>
-                <img src="../assets/images/help-details1.jpg" class="img">
+                <img src="../assets/images/help-details1.png" class="img">
                 <h3>Download data</h3>
                 <p>Users can click the download button to get raw data or model data. Please register and log in before downloading the input data, otherwise the data cannot be downloaded.
                 </p>
                 <h3>Browse test results</h3>
                 <p>Users can see the result in the bellow part by choosing "Structure", "Task" and "Task type" of the result, and click the "Show results" button.
                 </p>
-                <img src="../assets/images/help-details2.jpg" class="img">
+                <img src="../assets/images/help-details2.png" class="img">
 
               </div>
               <div id="upload">
                 <h2>Upload your projects</h2>
                 <p>After logging in, you can create a project in the
                   <el-link @click="router.push('/append_project')">add project page</el-link> just as bellow：</p>
-                <img src="../assets/images/help-upload1.jpg" class="img">
+                <img src="../assets/images/help-upload1.png" class="img">
 
                 <h3>Create projects</h3>
                 <p>In <el-link @click="router.push('/append_project')">add project page</el-link>, You can fill in or select elements, authors, etc. to create a project.</p>
-                <img src="../assets/images/help-add.jpg" class="img">
+                <img src="../assets/images/help-add.png" class="img">
                 <h3>Edit projects</h3>
                 <p>After creating a project, you can edit the details of that project about raw data, model, references, test results and so on in <el-link @click="router.push('/user_projects')">My projects page</el-link>.
                   After editing, remember to click the submit button to update the information.</p>
-                <img src="../assets/images/help-edit.jpg" class="img">
+                <img src="../assets/images/help-edit.png" class="img">
+                <img src="../assets/images/help-edit2.png" class="img">
+                <img src="../assets/images/help-edit3.png" class="img">
+                <img src="../assets/images/help-edit4.png" class="img">
+                <img src="../assets/images/help-edit5.png" class="img">
                 <h3>Share your porject</h3>
                 <p>When you confirm that the editing of porject is complete, you can click the "share button" to share the project on the projects list page for easy browsing.
                   Of course, you can also click "Don’t share" button again to hide the project.</p>

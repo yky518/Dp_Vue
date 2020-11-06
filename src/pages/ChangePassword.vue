@@ -5,7 +5,7 @@
       <el-row>
         <h2 style="text-align: center">Change Password</h2>
       </el-row>
-      <el-form status-icon :rules="rules" ref="changeForm" :model="changeForm" label-position="left" label-width="1.2rem">
+      <el-form status-icon :rules="rules" ref="changeForm" :model="changeForm" label-position="left" label-width="160px">
         <el-form-item label="Old Password" prop="oldPassword">
           <el-input type="password" v-model="changeForm.oldPassword"></el-input>
         </el-form-item>
@@ -16,7 +16,7 @@
           <el-input type="password" v-model="changeForm.checkPass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item  label="Verification" prop="slide" class="verify-row">
-          <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'1.82rem',height:'0.24rem'}"></Verify>
+          <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'350px',height:'40px'}"></Verify>
         </el-form-item>
         <div style="text-align: center;" class="bottom-row">
           <el-button round size="small" class="button-submit" @click="submitForm('changeForm')">Submit</el-button>
@@ -224,31 +224,31 @@
 
   #change-password >>> .el-input__inner{
     background-color: #f6f6f6;
-    border-radius: 10px;
-    height: 50px;
+    border-radius: 10PX;
+    height: 40PX;
   }
 
   #change-password >>> .el-input{
-    width: 350px;
+    width: 350PX;
   }
 
   #change-password >>> .el-form-item__label{
     font-weight: 400;
     color: #333333;
-    font: 24px/50px "PingFang SC";
+    font: 18PX/40PX "PingFang SC";
     /*text-align: right;*/
   }
 
   #change-password >>> .el-form-item__content{
-    font-size: 24px;
+    font-size: 18PX;
   }
 
   #change-password >>> .el-form-item__error{
-    font-size: 20px;
+    font-size: 18PX;
   }
 
   #change-password>>> .el-form-item{
-    margin: 50px 0;
+    /*margin: 30PX 0;*/
   }
 
   .button-submit{
@@ -261,7 +261,7 @@
     color: #fff;
   }
   .form-item{
-    margin-top: 40px;
+    margin-top: 40PX;
   }
 
   .verify-row >>> .verify-bar-area{
@@ -270,15 +270,15 @@
   }
 
   .bottom-row{
-    padding-bottom: 40px;
+    padding-bottom: 40PX;
   }
 
   .center-panel{
-    width: 620px;
-    padding: 0 10px;
-    margin: 60px auto;
+    width: 620PX;
+    padding: 0 10PX;
+    margin: 60PX auto;
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 15PX;
   }
 
   .footer{

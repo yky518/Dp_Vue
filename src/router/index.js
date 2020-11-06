@@ -92,6 +92,13 @@ const router =  new Router({
       }
     },
     {
+      path: '/aboutus',
+      name: 'AboutUs',
+      component(resolve){
+        require(['@/pages/AboutUs.vue'],resolve)
+      }
+    },
+    {
       path: '/forget_password',
       name: 'ForgetPassword',
       component(resolve){

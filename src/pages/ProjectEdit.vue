@@ -59,35 +59,58 @@
                     <el-collapse accordion>
                       <el-collapse-item>
                         <template slot="title">
-                          <el-radio v-model="project_info.license" label="1">Attribution-ShareAlike</el-radio>
+                          <el-radio v-model="project_info.license" label="1">Attribution</el-radio>
                         </template>
-                        <p> If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+                        <p>
+                          <strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+                        </p>
                       </el-collapse-item>
                       <el-collapse-item>
                         <template slot="title">
-                          <el-radio v-model="project_info.license" label="2">Attribution-NoDerivs</el-radio>
+                          <el-radio v-model="project_info.license" label="2">Attribution-ShareAlike</el-radio>
                         </template>
-                        <p> If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
+                        <p>
+                          <strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+                        </p>
+                        <p><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
                       </el-collapse-item>
                       <el-collapse-item>
                         <template slot="title">
-                          <el-radio v-model="project_info.license" label="3">Attribution-NonCommercial</el-radio>
+                          <el-radio v-model="project_info.license" label="3">Attribution-NoDerivs</el-radio>
                         </template>
-                        <div>You may not use the material for commercial purposes. </div>
+                        <p>
+                          <strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+                        </p>
+                        <p><strong>NoDerivatives</strong> — If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
                       </el-collapse-item>
                       <el-collapse-item>
                         <template slot="title">
-                          <el-radio v-model="project_info.license" label="4">Attribution-NonCommercial-ShareAlike</el-radio>
+                          <el-radio v-model="project_info.license" label="4">Attribution-NonCommercial</el-radio>
                         </template>
-                        <p>You may not use the material for commercial purposes.</p>
-                        <p>If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+                        <p>
+                          <strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+                        </p>
+                        <div><strong>NonCommercial </strong> — You may not use the material for commercial purposes. </div>
                       </el-collapse-item>
                       <el-collapse-item>
                         <template slot="title">
-                          <el-radio v-model="project_info.license" label="5">Attribution-NonCommercial-NoDerivs</el-radio>
+                          <el-radio v-model="project_info.license" label="5">Attribution-NonCommercial-ShareAlike</el-radio>
                         </template>
-                        <p>You may not use the material for commercial purposes.</p>
-                        <p> If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
+                        <p>
+                          <strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+                        </p>
+                        <p><strong>NonCommercial </strong> — You may not use the material for commercial purposes.</p>
+                        <p><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+                      </el-collapse-item>
+                      <el-collapse-item>
+                        <template slot="title">
+                          <el-radio v-model="project_info.license" label="6">Attribution-NonCommercial-NoDerivs</el-radio>
+                        </template>
+                        <p>
+                          <strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+                        </p>
+                        <p><strong>NonCommercial </strong> — You may not use the material for commercial purposes.</p>
+                        <p><strong>NoDerivatives</strong> — If you remix, transform, or build upon the material, you may not distribute the modified material. </p>
                       </el-collapse-item>
                     </el-collapse>
                   </el-form-item>
@@ -176,12 +199,12 @@
                       </i>
                     </div>
                     <el-select v-model="model_add.param_type" multiple clearable filterable allow-create style="width: 60%">
-                      <el-option value="input.json"></el-option>
-                      <el-option value="lcurve.out"></el-option>
-                      <el-option value="check.point"></el-option>
-                      <el-option value="model.ckpt.index"></el-option>
-                      <el-option value="model.ckpt.meta"></el-option>
-                      <el-option value="model.ckpt.data-00000-of-00001"></el-option>
+                      <el-option value="input.json" label="input.json"></el-option>
+                      <el-option value="lcurve.out" label="curve.out"></el-option>
+                      <el-option value="checkpoint" label="checkpoint"></el-option>
+                      <el-option value="model.ckpt.index" label="model.ckpt.index"></el-option>
+                      <el-option value="model.ckpt.meta" label="model.ckpt.meta"></el-option>
+                      <el-option value="model.ckpt.data-00000-of-00001" label="model.ckpt.data-00000-of-00001"></el-option>
                     </el-select>
                     <FileUpload :disabled="!model_add.version" upload_id="model_add_param" text="Browse" @upload="fileUploadParam($event,model_add)"></FileUpload>
                     <p style="line-height: 30px;margin: 5px auto;">Upload '.zip' file for params</p>
@@ -565,7 +588,51 @@ Upload notes file for parameters
                       </el-form-item>
                     </el-col>
                   </el-row>
+
                   <el-row>
+                    <el-col :span="10">
+                      <el-form-item label="Author">
+                        <el-input v-model="paper_details[index].author"></el-input>
+                      </el-form-item>
+                    </el-col>
+
+                    <el-col :span="10" :offset="2">
+                      <el-form-item label="Volume">
+                        <el-input v-model="paper_details[index].volume"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
+                  <el-row>
+                    <el-col :span="10">
+                      <el-form-item label="Number">
+                        <el-input v-model="paper_details[index].number"></el-input>
+                      </el-form-item>
+                    </el-col>
+
+                    <el-col :span="10" :offset="2">
+                      <el-form-item label="Pages">
+                        <el-input v-model="paper_details[index].pages"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
+                  <el-row>
+                  <el-col :span="10">
+                    <el-form-item label="Number">
+                      <el-input v-model="paper_details[index].publisher"></el-input>
+                    </el-form-item>
+                  </el-col>
+
+                  <el-col :span="10" :offset="2">
+                    <el-form-item label="Journal">
+                      <el-input v-model="paper_details[index].journal"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  </el-row>
+
+
+                  <!--<el-row>
                     <el-col :span="22">
                       <el-form-item label="Elements">
                         <ElementPicker :formula="paper.elements" @formchange="paperElementChange($event,index)"></ElementPicker>
@@ -586,7 +653,7 @@ Upload notes file for parameters
                         <el-input type="textarea" rows="3" v-model="paper.abstract"></el-input>
                       </el-form-item>
                     </el-col>
-                  </el-row>
+                  </el-row>-->
                   <el-row  class="button-row">
                     <el-button round  class="button-submit" @click="paperEditSubmit(index)">
                       <img src="../assets/images/提交.png" class="icon-img">
@@ -647,6 +714,42 @@ Upload notes file for parameters
                   </el-col>
                 </el-row>
                 <el-row>
+                  <el-col :span="10">
+                    <el-form-item label="Author" prop="author">
+                      <el-input v-model="paper_add_details.author"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="10" :offset="2">
+                    <el-form-item label="Volume" prop="volume">
+                      <el-input v-model="paper_add_details.volume"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="10">
+                    <el-form-item label="Number" prop="number">
+                      <el-input v-model="paper_add_details.number"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="10" :offset="2">
+                    <el-form-item label="Pages" prop="pages">
+                      <el-input v-model="paper_add_details.pages"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="10">
+                    <el-form-item label="Publisher" prop="publisher">
+                      <el-input v-model="paper_add_details.publisher"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="10" :offset="2">
+                    <el-form-item label="Journal" prop="journal">
+                      <el-input v-model="paper_add_details.journal"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+<!--                <el-row>
                   <el-col :span="22">
                     <el-form-item label="Elements" prop="elements">
                       <ElementPicker ref="elementPicker" :formula="paper_add.elements" @formchange="paperAddElementChange($event)"></ElementPicker>
@@ -667,7 +770,7 @@ Upload notes file for parameters
                       <el-input type="textarea" rows="3" v-model="paper_add.abstract"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
+                </el-row>-->
                 <el-row  class="button-row">
                   <el-button round  class="button-submit" @click="paperAddSubmit" v-if="(paper_add.citations&&paper_add.title)||paper_add.file">
                     <img src="../assets/images/提交.png" class="icon-img">
@@ -1122,6 +1225,7 @@ If you have more than one model, please the upload the zip file.</p>
           models_info: [],
           model_add_param_notice: false,
           papers_info: [],
+          paper_details: [],
           paparsElementStr: [],
           paparAddElementStr: '',
           results_info: [],
@@ -1143,6 +1247,15 @@ If you have more than one model, please the upload the zip file.</p>
             abstract: "",
             year: "",
             software: "",
+            details: ""
+          },
+          paper_add_details: {
+            author: '',
+            volumn: '',
+            number: '',
+            pages: '',
+            publisher: '',
+            journal: '',
           },
           result_add: {
             structure: "",
@@ -1383,9 +1496,9 @@ If you have more than one model, please the upload the zip file.</p>
         },
         paperEditSubmit(index){
           this.papers_info[index].elements = this.paparsElementStr[index]
-          console.log(
-            this.papers_info
-          )
+          for(let i in this.papers_info){
+            this.papers_info[i].details = this.paper_details[i]
+          }
           this.axios.post('/v1/user/update_papers', {
             papers_data:this.papers_info, project_id: this.project_info['project_id']
           }).then(res=>{
@@ -1398,11 +1511,10 @@ If you have more than one model, please the upload the zip file.</p>
           })
         },
         paperAddSubmit(){
-          this.paper_add.elements = this.paparAddElementStr
+          this.paper_add.details = this.paper_add_details
           if(this.paper_add.title||this.paper_add.file){
             this.papers_info.push(this.paper_add)
           }
-          console.log(this.papers_info)
 
           this.axios.post('/v1/user/update_papers', {
             papers_data:this.papers_info, project_id: this.project_info['project_id']
@@ -1468,7 +1580,7 @@ If you have more than one model, please the upload the zip file.</p>
             results_data: results_info, project_id: this.project_info['project_id']
           })
           this.axios.post('/v1/user/update_results', {
-            results_data: this.results_info, project_id: this.project_info['project_id']
+            results_data: results_info, project_id: this.project_info['project_id']
           }).then(res=>{
 
             console.log(res.data)
@@ -1728,7 +1840,7 @@ If you have more than one model, please the upload the zip file.</p>
 
               for (let item of model.param_type) {
                 if (entryList.indexOf(item) < 0) {
-                  this.$alert('Your param file should consist of the type you choose!', '', {
+                  this.$alert('Your param file should consist of file: ' + item, '', {
                     confirmButtonText: 'OK',
                     showClose: true,
                     iconClass: "el-icon-circle-close",
@@ -2277,6 +2389,25 @@ If you have more than one model, please the upload the zip file.</p>
               this.$set(model,"param_type",JSON.parse(model.param_type))
             }
             this.papers_info = data.papers_info
+            console.log(this.papers_info)
+            for(let item of this.papers_info){
+              console.log(item)
+              console.log(item.details)
+              if(item.details){
+                this.paper_details.push(JSON.parse(item.details))
+              }else{
+                this.paper_details.push({
+                  author: '',
+                  volumn: '',
+                  number: '',
+                  pages: '',
+                  publisher: '',
+                  journal: '',
+                })
+              }
+
+            }
+            console.log(this.paper_details)
             this.results_info = data.results_info
             //vasp
             let elements = this.project_info.elements.split('-')

@@ -14,9 +14,9 @@
         <el-col :span="5" class="author" >
           <span style="color:#fff;">User: {{$store.state.name}}</span>
         </el-col>
-
+        <el-button @click="$router.push('/append_project')" style="float: right">Add Project</el-button>
       </el-row>
-      <AppendPart></AppendPart>
+
       <div class="table-panel">
         <el-table :header-cell-style="{'background-color': '#f3f3fe'}" :data="currentPageData">
           <el-table-column align="center" prop="project_id" label="Project"  min-width="11%"></el-table-column>

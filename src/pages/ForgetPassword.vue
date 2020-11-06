@@ -6,7 +6,7 @@
         <el-row>
           <h2 style="text-align: center">Forget Password</h2>
         </el-row>
-        <el-form status-icon :rules="rules" ref="forgetForm" :model="forgetForm" label-position="left" label-width="1.1rem">
+        <el-form status-icon :rules="rules" ref="forgetForm" :model="forgetForm" label-position="left" label-width="160px">
           <el-form-item label="Name" prop="name">
             <el-input v-model="forgetForm.name" autocomplete="off"></el-input>
           </el-form-item>
@@ -17,7 +17,7 @@
             <el-input type="password" v-model="forgetForm.checkPass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item  label="Verification" prop="slide">
-            <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'1.82rem',height:'0.24rem'}"></Verify>
+            <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'350px',height:'40px'}"></Verify>
           </el-form-item>
           <el-form-item label="Verification" prop="verification" class="verification">
             <div class="verification-content">
@@ -307,59 +307,59 @@
       min-height: 950px;
 
       .center-panel{
-        width: 620px;
-        padding: 0 10px;
-        margin: 60px auto;
+        width: 620PX;
+        padding: 0 10PX;
+        margin: 60PX auto;
         background-color: #fff;
-        border-radius: 15px;
+        border-radius: 15PX;
 
         >>> .el-form-item{
-          margin: 50px 0;
+          //margin: 30PX 0;
         }
 
         >>> .el-form-item__content{
-          font-size: 24px;
+          font-size: 18PX;
         }
         >>> .el-input{
-          width: 350px;
+          width: 350PX;
 
         }
 
         >>> .el-input__inner{
           background-color: #f6f6f6;
-          border-radius: 10px;
-          height: 50px;
+          border-radius: 10PX;
+          height: 40PX;
         }
         >>> .el-form-item__label{
           font-weight: 400;
           color: #333333;
-          font: 24px/50px "Microsoft Ya Hei";
+          font: 18PX/40PX "Microsoft Ya Hei";
           /*text-align: right;*/
         }
 
         >>> .el-form-item__content{
           .el-input{
-            font-size: 22px;
+            font-size: 18PX;
           }
         }
 
         >>> .el-form-item__error{
-          font-size: 20px;
+          font-size: 18PX;
         }
         .verification{
           >>> .el-input{
-            width:220px;
+            width:220PX;
           }
 
           .verification-content{
             display: flex;
             justify-content: space-between;
-            width: 350px;
+            width: 350PX;
 
             .verification-button, .count{
-              font-size: 20px;
-              line-height: 40px;
-              padding: 0px 10px;
+              font-size: 18PX;
+              line-height: 40PX;
+              padding: 0PX 10PX;
             }
 
             .verification-button{
@@ -391,7 +391,7 @@
           }
         }
         .bottom-row{
-          padding-bottom: 40px;
+          padding-bottom: 40PX;
         }
 
       }

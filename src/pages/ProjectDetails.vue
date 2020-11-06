@@ -102,9 +102,13 @@
           <span style="vertical-align:middle;">Download</span>
         </el-button>
 
-        <el-button round   @click="download(project_info.input_file)" class="button-input">
+        <el-button round v-if="project_info.input_file"  @click="download(project_info.input_file)" class="button-input">
           <span style="vertical-align:middle;">Input File</span>
         </el-button>
+        <el-button round v-else class="button-input-disable" disabled>
+          <span style="vertical-align:middle;">Input File</span>
+        </el-button>
+
         <el-button v-if="isNotesFile" round  class="button-note" @click="download(project_info.notes)">
           <span style="vertical-align:middle;">Parameter File</span>
         </el-button>
@@ -122,6 +126,7 @@
 
         </div>
         <h3>PseudoPotential</h3>
+        {{ isVasp }}
         <div v-if="isVasp">
           <el-button round @click="showPseudo = !showPseudo" class="button-primary">
             <span style="vertical-align:middle;">PsuedoPotential</span>
@@ -503,28 +508,34 @@
                 this.feedback_main_show = this.feedback_main
               }
               this.models_info = res.data.models_info
-              let notes =  this.models_info[0].notes
-              console.log(notes)
-              if(/^https/.test(notes)){
-                console.log("https")
-                this.model_note_isfile = true
+              if(this.models_info.length>0){
+                let notes =  this.models_info[0].notes
+                console.log(notes)
+                if(/^https/.test(notes)){
+                  console.log("https")
+                  this.model_note_isfile = true
+                }
               }
+
               this.project_info = res.data.project_info
               console.log(this.project_info.license)
               switch (this.project_info.license){
                 case "1":
-                  this.license = 'Attribution-ShareAlike'
+                  this.license = 'Attribution'
                   break
                 case "2":
-                  this.license = 'Attribution-NoDerivs'
+                  this.license = 'Attribution-ShareAlike'
                   break
                 case "3":
-                  this.license = 'Attribution-NonCommercial'
+                  this.license = 'Attribution-NoDerivs'
                   break
                 case "4":
-                  this.license = 'Attribution-NonCommercial-ShareAlike'
+                  this.license = 'Attribution-NonCommercial'
                   break
                 case "5":
+                  this.license = 'Attribution-NonCommercial-ShareAlike'
+                  break
+                case "6":
                   this.license = 'Attribution-NonCommercial-NoDerivs'
                   break
                 default:
@@ -1639,6 +1650,12 @@
     border: 0;
     color: #fff;
   }
+  .button-input-disable{
+    background-color: #d9edfb;
+    border: 0;
+    color: #fff;
+  }
+
   .button-disable{
     background-color: #dadbed!important;
     border: 0;
@@ -1654,6 +1671,7 @@
     border: 0;
     color:#fffeff;
   }
+
   .button-search{
     background-color: #0088ee;
     border: 0;

@@ -6,7 +6,7 @@
 
         <el-tabs type="border-card" id="login-tabs">
           <el-tab-pane label="Login">
-            <el-form status-icon :rules="rules" label-position="left" ref="loginForm" :model="loginForm" label-width="0.90rem">
+            <el-form status-icon :rules="rules" label-position="left" ref="loginForm" :model="loginForm" label-width="160px">
               <el-form-item label="Username" prop="name">
                 <el-input v-model="loginForm.name"></el-input>
               </el-form-item>
@@ -14,7 +14,7 @@
                 <el-input type="password" v-model="loginForm.password"></el-input>
               </el-form-item>
               <el-form-item label="Verification" prop="slide" class="verify-row">
-                <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'1.82rem',height:'0.24rem'}"></Verify>
+                <Verify  @success="alert('success')" explain="Slide to right" :show-button="false" @error="alert('error')" :type="3" :barSize="{width:'350px',height:'40px'}"></Verify>
               </el-form-item>
               <el-form-item prop="checked"  class="agreement-row" label-width="0">
                 <input type="checkbox" class="checkbox" v-model="loginForm.checked">
@@ -257,25 +257,25 @@
     min-height: 950px;
   }
   #login{
-    width: 620px;
-    padding: 0 10px;
-    margin: 60px auto;
+    width: 620PX;
+    padding: 0 10PX;
+    margin: 60PX auto;
   }
 
   #login >>> .el-card__body{
-    padding: 48px 40px;
+    padding: 48PX 40PX;
   }
 
   #login >>> .el-input{
-    width: 350px;
-    font-size: 22px;
+    width: 350PX;
+    font-size: 22PX;
 
   }
 
   #login >>> .el-input__inner{
     background-color: #f6f6f6;
-    border-radius: 10px;
-    height: 50px;
+    border-radius: 10PX;
+    height: 40PX;
   }
 
   #login >>>  .el-checkbox__inner{
@@ -285,12 +285,12 @@
   #login >>> .el-form-item__label{
     font-weight: 400;
     color: #333333;
-    font: 24px/50px "PingFang SC";
+    font: 18PX/40PX "PingFang SC";
     /*text-align: right;*/
 
   }
   #login-tabs{
-    border-radius: 10px;
+    border-radius: 10PX;
     overflow: auto;
     border: 0;
   }
@@ -306,10 +306,10 @@
     border: 0;
     color: #333333;
     background-color:#eeeeee;
-    font-size: 22px;
+    font-size: 18PX;
     text-align: center;
-    height: 80px;
-    padding-top: 20px;
+    height: 80PX;
+    padding-top: 18PX;
   }
 
   #login-tabs >>> .el-tabs__item.is-active{
@@ -322,15 +322,15 @@
   }
 
   #login-tabs>>> .el-form-item{
-    /*margin: 50px 0;*/
+    /*margin: 40PX 0;*/
   }
 
   #login-tabs >>> .el-form-item__content{
-    font-size: 24px;
+    font-size: 18PX;
   }
 
   #login-tabs >>> .el-form-item__error{
-    font-size: 16px;
+    font-size: 16PX;
   }
 
   .button-submit{
@@ -346,12 +346,12 @@
   }
 
   .checkbox{
-    height: 24px;
-    width:24px;
+    height: 18PX;
+    width:18PX;
   }
 
   .verify-row{
-    margin: 20px 0!important;
+    margin: 18PX 0!important;
   }
 
   .verify-row >>> .verify-bar-area{
@@ -366,7 +366,7 @@
   }
 
   .third-party{
-    font: 24px/40px "Microsoft Ya Hei";
+    font: 18PX/40PX "Microsoft Ya Hei";
   }
 
 </style>
@@ -377,7 +377,7 @@
   }
 
   .forget-link{
-    font-size: 18px;
+    font-size: 18PX;
     &:hover{
       color: #33327e;
 
@@ -397,12 +397,12 @@
   }
 
   .button-row{
-    margin: 5px 0;
+    margin: 5PX 0;
   }
 
   .third-avatar{
-    width: 40px;
-    height: 40px;
+    width: 40PX;
+    height: 40PX;
   }
 
 
