@@ -126,7 +126,6 @@
 
         </div>
         <h3>PseudoPotential</h3>
-        {{ isVasp }}
         <div v-if="isVasp">
           <el-button round @click="showPseudo = !showPseudo" class="button-primary">
             <span style="vertical-align:middle;">PsuedoPotential</span>

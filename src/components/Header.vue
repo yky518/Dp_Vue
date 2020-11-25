@@ -6,6 +6,12 @@
       </el-menu-item>
       <el-submenu class="submenu" index="user"  v-if="name" :style="{float: 'right', 'border-bottom': headerOver[5]?'0.020833rem solid #fff':'0.020833rem solid transparent'}" @mouseenter.native="headerItemOver(5)" @mouseleave.native="headerItemOut(5)">
         <template slot="title"><img src="../assets/images/头像.png" class="icon-img user-icon"><span class="header-item">{{name}}</span></template>
+        <el-menu-item index="admin" :style="{'background': subitemHover[9]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(9)" @mouseleave.native="mouseout(9)">
+          <img src="../assets/images/总项目.png" class="icon-img">
+          <el-link :underline="false" v-if="$store.state.privilege" @click="changeTab('/admin')">
+            Admin
+          </el-link>
+        </el-menu-item>
         <el-menu-item index="user1" :style="{'background': subitemHover[0]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(0)" @mouseleave.native="mouseout(0)">
             <img src="../assets/images/总项目.png" class="icon-img">
           <el-link :underline="false" @click="changeTab('/user_projects')">
@@ -67,20 +73,8 @@
         <el-menu-item :style="{'background': subitemHover[8]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(8)" @mouseleave.native="mouseout(8)">
           <el-link :underline="false" @click="changeOuterTab('http://bbs.deepmd.org')">Forum</el-link>
         </el-menu-item>
-
-<!--        <el-menu-item index="API2"  :style="{'background': subitemHover[9]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(9)" @mouseleave.native="mouseout(9)">
-          <el-link :underline="false" >Forum</el-link>
-        </el-menu-item>-->
       </el-submenu>
 
-<!--      <el-submenu class="submenu"  style="float: right;"  index="API" :style="{float: 'right', 'border-bottom': headerOver[3]?'0.020833rem solid #fff':'0.020833rem solid transparent'}"
-                  @mouseenter.native="headerItemOver(3)" @mouseleave.native="headerItemOut(3)">
-        <template slot="title"><span class="header-item">API</span></template>
-        <el-menu-item index="API1" :style="{'background': subitemHover[9]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(9)" @mouseleave.native="mouseout(9)">
-          <el-link :underline="false" >Documentation</el-link>
-
-        </el-menu-item>
-      </el-submenu>-->
       <el-menu-item index="elements_list" class="header-item-margin" :style="{float: 'right','background-color': backgroundColor, 'border-bottom': headerOver[2]?'0.020833rem solid #fff':''}"
                     @mouseenter.native="headerItemOver(2)" @mouseleave.native="headerItemOut(2)">
         <el-link :underline="false" class="header-item" target="_blank" @click="changeTab('/elements_list')">
@@ -88,11 +82,6 @@
         </el-link>
 
       </el-menu-item>
-
-<!--      <el-menu-item :style="{float: 'right','border-bottom': headerOver[1]?'0.020833rem solid #fff':'0.020833rem solid transparent'}"  class="header-item-margin"
-                    @mouseenter.native="headerItemOver(1)" @mouseleave.native="headerItemOut(1)">
-        <span class="header-item">DOCUMENT</span>
-      </el-menu-item>-->
       <el-menu-item index="home" :style="{float: 'right', 'border-bottom': headerOver[0]?'0.020833rem solid #fff':'0.020833rem solid transparent'}" class="header-item-margin"
         @mouseenter.native="headerItemOver(0)" @mouseleave.native="headerItemOut(0)">
         <el-link :underline="false" class="header-item" @click="changeTab('home')">
@@ -113,7 +102,7 @@
       inject:['reload'],
       data(){
           return {
-            subitemHover: [false, false, false, false, false, false, false, false, false,false,false],
+            subitemHover: [false, false, false, false, false, false, false, false, false,false,false,false],
             headerOver: [false, false, false, false, false, false,false,false,false],
             backgroundColor: 'transparent'
           }

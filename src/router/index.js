@@ -129,8 +129,24 @@ const router =  new Router({
   // mode:'history'
 })
 
+
+export function addAdmin(){
+  let adminRouter = [{
+      path: '/admin',
+      name: 'Admin',
+      component(resolve){
+        require(['@/pages/Admin.vue'],resolve)
+      },
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      }
+    }]
+    router.addRoutes(adminRouter);
+}
+
 router.beforeEach((to, from, next) => {
   axios.get('v1/user/check_username').then(res=>{
+    console.log('call router')
     if(res.data.result == 'failed'){
       store.commit('logout')
     }else{
