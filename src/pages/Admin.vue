@@ -27,8 +27,10 @@
           <el-table-column align="center" prop="update_time" label="Updated Time" :formatter="formatter"  min-width="15.5%"></el-table-column>
           <el-table-column align="center" label="Review" min-width="9%">
             <template v-slot="scope">
-              <el-button type="text" style="color: #33327e;" size="small" @click.stop="handleReview(scope.$index, scope.row)">
-                <img src="../assets/images/编辑.png" class="icon-img">
+              <el-button style="color: #33327e;padding: 8px" round
+                         size="small" @click.stop="handleReview(scope.$index, scope.row)">
+<!--                <img src="../assets/images/编辑.png" class="icon-img">-->
+                Approve
               </el-button>
             </template>
           </el-table-column>

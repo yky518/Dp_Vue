@@ -66,14 +66,14 @@
             callback();
           }
         };
-        var validateEmail = (rule, value, callback) => {
+/*        var validateEmail = (rule, value, callback) => {
           let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5._]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
           if (regEmail.test(value)) {
             callback();
           } else {
             callback(new Error('Email Error'));
           }
-        };
+        };*/
         var slidePass = (rule, value, callback) => {
           if(value){
             callback();
@@ -118,8 +118,12 @@
             checkPass: [
               { required: true, validator: validatePass2, trigger: 'blur' }
             ],
-            email: [
+/*            email: [
               { required: true, validator: validateEmail, trigger: 'blur' }
+            ],*/
+            email: [
+              { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+              { type: 'email', message: 'Incorrect email format', trigger: 'blur' },
             ],
             slide: [
               { required: true, validator: slidePass, trigger: 'blur' }

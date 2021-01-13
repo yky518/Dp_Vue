@@ -159,14 +159,14 @@
     export default {
         name: "Help",
       data(){
-        var validateEmail = (rule, value, callback) => {
+      /*  var validateEmail = (rule, value, callback) => {
           let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
           if (regEmail.test(value)) {
             callback();
           } else {
             callback(new Error('Email Error'));
           }
-        };
+        };*/
         var slidePass = (rule, value, callback) => {
           console.log('slide')
           if(value){
@@ -199,7 +199,8 @@
               { min: 4, max: 36, message: 'Length between 4 and 36', trigger: 'blur' }
             ],
             email: [
-              { required: true, validator: validateEmail, trigger: 'blur' }
+              { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+              { type: 'email', message: 'Incorrect email format', trigger: 'blur' },
             ],
             data:[
               { required: true, message: 'Input your opinion', trigger: 'blur' },
@@ -209,6 +210,13 @@
             ],
           }
         }
+      },
+      created() {
+          console.log(Object.keys(this.$route.params))
+        if(Object.keys(this.$route.params).length>0){
+          this.showHelp = false;
+        }
+        console.log(this.showHelp);
       },
       methods:{
         goto(to){
@@ -276,6 +284,7 @@
           location.href=id;
         }
       },
+
       components:{
           Header,
         Footer,

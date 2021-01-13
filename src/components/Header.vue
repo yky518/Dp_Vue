@@ -6,9 +6,9 @@
       </el-menu-item>
       <el-submenu class="submenu" index="user"  v-if="name" :style="{float: 'right', 'border-bottom': headerOver[5]?'0.020833rem solid #fff':'0.020833rem solid transparent'}" @mouseenter.native="headerItemOver(5)" @mouseleave.native="headerItemOut(5)">
         <template slot="title"><img src="../assets/images/头像.png" class="icon-img user-icon"><span class="header-item">{{name}}</span></template>
-        <el-menu-item index="admin" :style="{'background': subitemHover[9]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(9)" @mouseleave.native="mouseout(9)">
+        <el-menu-item v-if="$store.state.privilege === '2'" index="admin" :style="{'background': subitemHover[9]? '#f3f3fe': 'transparent'}" @mouseenter.native="mouseover(9)" @mouseleave.native="mouseout(9)">
           <img src="../assets/images/总项目.png" class="icon-img">
-          <el-link :underline="false" v-if="$store.state.privilege" @click="changeTab('/admin')">
+          <el-link :underline="false" @click="changeTab('/admin')">
             Admin
           </el-link>
         </el-menu-item>

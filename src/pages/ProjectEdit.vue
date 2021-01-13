@@ -10,7 +10,10 @@
           <div class="card">
             <h2>
               Overview
-
+              <span class="review-text" v-if="project_info.review === '1'">
+                <i class="el-icon-warning"></i>
+                Under Review
+              </span>
             </h2>
             <hr style="border:1px dashed #b6afd7;"/>
             <el-form ref="project_info" :model="project_info" :label-width="labelWidth" class="form-margin">
@@ -1354,10 +1357,8 @@ If you have more than one model, please the upload the zip file.</p>
               url: this.pseudo
             });
           }
-          console.log(this.project_info)
 
           this.axios.post('/v1/user/update_project', this.project_info).then(res=>{
-            console.log(res.data)
             this.showMessage('Success',"project")
           }).catch(err=>{
             console.log(err)
@@ -1366,9 +1367,7 @@ If you have more than one model, please the upload the zip file.</p>
         },
         changeAvilable(){
           this.$set(this.project_info, 'available', -1 - this.project_info.available)
-          console.log(this.project_info)
           this.axios.post('/v1/user/update_project', this.project_info).then(res=>{
-            console.log(res.data)
             this.showMessage('Success',"project")
           }).catch(err=>{
             console.log(err)
@@ -1379,7 +1378,6 @@ If you have more than one model, please the upload the zip file.</p>
           console.log(tab, event)
         },
         projectDelete: function(args){
-          console.log(args)
           this.$confirm('Are you sure to delete the paper?', '', {
             confirmButtonText: 'OK',
             cancelButtonText: 'Cancel',
@@ -1410,7 +1408,6 @@ If you have more than one model, please the upload the zip file.</p>
           }
         },
         modelDelete: function(args){
-          console.log(args)
           this.$confirm('Are you sure to delete the paper?', '', {
             confirmButtonText: 'OK',
             cancelButtonText: 'Cancel',
@@ -1440,7 +1437,6 @@ If you have more than one model, please the upload the zip file.</p>
           this.axios.post('/v1/user/update_models', {
             models_data: this.models_info, project_id: this.project_info['project_id']
           }).then(res=>{
-            console.log(res.data)
             this.showMessage('Success',"model")
             // this.reload()
           }).catch(err=>{
@@ -1449,18 +1445,13 @@ If you have more than one model, please the upload the zip file.</p>
           })
         },
         modelAddSubmit(){
-
-          for(let model of this.models_info){
-            console.log(model.param_type);
-            this.$set(model,'param_type',JSON.stringify(model.param_type))
-          }
           this.$set(this.model_add,'param_type',JSON.stringify(this.model_add.param_type))
           if(this.model_add.version){
             this.models_info[0] = this.model_add
           }
-          let models_data = JSON.parse(JSON.stringify(this.models_info))
+          // let models_data = JSON.parse(JSON.stringify(this.models_info))
           this.axios.post('/v1/user/update_models', {
-            models_data: models_data, project_id: this.project_info['project_id']
+            models_data: this.models_info, project_id: this.project_info['project_id']
           }).then(res=>{
             this.showMessage('Success',"model")
             // this.reload()
@@ -1502,8 +1493,6 @@ If you have more than one model, please the upload the zip file.</p>
           this.axios.post('/v1/user/update_papers', {
             papers_data:this.papers_info, project_id: this.project_info['project_id']
           }).then(res=>{
-            console.log(res.data)
-
             this.showMessage('Success', 'references')
 
           }).catch(err=>{
@@ -1519,8 +1508,6 @@ If you have more than one model, please the upload the zip file.</p>
           this.axios.post('/v1/user/update_papers', {
             papers_data:this.papers_info, project_id: this.project_info['project_id']
           }).then(res=>{
-
-            console.log(res.data)
             this.showAddPaper = false
             this.showMessage('Success', 'references')
           }).catch(err=>{
@@ -1537,7 +1524,6 @@ If you have more than one model, please the upload the zip file.</p>
             type: 'warning'
           }).then(() => {
             this.axios.get('/v1/user/delete_data?project_id=' + args['project_id'] + '&result_id='+ args['result_id']+'&type=' + args['type']).then(res=>{
-              console.log(res)
               this.showMessage('Success', 'results')
               this.reload();
             })
@@ -1554,14 +1540,10 @@ If you have more than one model, please the upload the zip file.</p>
         },
 
         resultEditSubmit(){
-          console.log({
-            results_data: this.results_info, project_id: this.project_info['project_id']
-          })
           this.axios.post('/v1/user/update_results', {
             results_data: this.results_info, project_id: this.project_info['project_id']
           }).then(res=>{
 
-            console.log(res.data)
             this.showMessage('Success', 'results')
 
             // this.reload()
@@ -1576,9 +1558,6 @@ If you have more than one model, please the upload the zip file.</p>
             results_info.push(this.result_add)
           }
 
-          console.log({
-            results_data: results_info, project_id: this.project_info['project_id']
-          })
           this.axios.post('/v1/user/update_results', {
             results_data: results_info, project_id: this.project_info['project_id']
           }).then(res=>{
@@ -1593,16 +1572,12 @@ If you have more than one model, please the upload the zip file.</p>
           })
         },
         resetForm(formName) {
-          console.log(formName)
           this.$refs[formName].resetFields();
           if(formName=="paper_add"){
             this.$refs['elementPicker'].clearElement();
           }
         },
         rawNotesUpload(file){
-
-
-          console.log(file)
 
           const reg = /.zip$/;
           if (reg.test(file.name)) {
@@ -1612,7 +1587,6 @@ If you have more than one model, please the upload the zip file.</p>
               storeAs = this.$store.state.name + "/" + this.project_info['project_id'] + "/model/param/" + file.name;
               // storeAs = this.$store.state.name + "/" + this.project_info['project_id'] + "/model/" + file.name;
 
-              console.log(res.data)
               let result = res.data.result;
               const client = new OSS({
                 accessKeyId: result.AccessKeyId,
@@ -1655,9 +1629,6 @@ If you have more than one model, please the upload the zip file.</p>
         },
         paperFileUpload(file, paper){
 
-
-          console.log(file)
-
           const reg = /.zip$/;
           if (1) {
             this.axios.get('/v1/user/get_token').then(res => {
@@ -1666,7 +1637,6 @@ If you have more than one model, please the upload the zip file.</p>
               storeAs = this.$store.state.name + "/" + this.project_info['project_id'] + "/paper/" + file.name;
               // storeAs = this.$store.state.name + "/" + this.project_info['project_id'] + "/model/" + file.name;
 
-              console.log(res.data)
               let result = res.data.result;
               const client = new OSS({
                 accessKeyId: result.AccessKeyId,
@@ -2377,22 +2347,22 @@ If you have more than one model, please the upload the zip file.</p>
             this.activeName = this.$route.query.active
           }
           this.axios.get('/v1/projects/project_details?project_id=' + this.$route.query.project_id).then(res=>{
-            console.log(res.data)
             let data = res.data
             this.project_info = data.project_info
             this.models_info = data.models_info
             if(data.models_info.length){
               this.model_add = data.models_info[0]
             }
-
-            for(let model of data.models_info){
-              this.$set(model,"param_type",JSON.parse(model.param_type))
+            for(let model of this.models_info){
+              model.param_type = JSON.parse(model.param_type)
+              if(!(model.param_type instanceof Array)){
+                model.param_type = []
+              }
+              // this.$set(model,"param_type",JSON.parse(model.param_type))
             }
             this.papers_info = data.papers_info
-            console.log(this.papers_info)
+
             for(let item of this.papers_info){
-              console.log(item)
-              console.log(item.details)
               if(item.details){
                 this.paper_details.push(JSON.parse(item.details))
               }else{
@@ -2407,13 +2377,10 @@ If you have more than one model, please the upload the zip file.</p>
               }
 
             }
-            console.log(this.paper_details)
             this.results_info = data.results_info
             //vasp
             let elements = this.project_info.elements.split('-')
             this.elementCount = elements.length
-            console.log(elements)
-            console.log(this.elementCount)
             if(this.project_info.code_type === "vasp"){
               this.isVasp = true
               if(this.project_info.pseudo.elements){
@@ -2436,7 +2403,6 @@ If you have more than one model, please the upload the zip file.</p>
                   hash: ''
                 })
               }
-              console.log(this.pseudoList)
               if(this.project_info.pseudo){
                 this.pseudo = JSON.parse(this.project_info.pseudo).url
               }
@@ -2452,7 +2418,6 @@ If you have more than one model, please the upload the zip file.</p>
             this.formulaString = data.project_info.elements
 
             if(this.$store.state.email_verify==0){
-              console.log(this.$store.state.email_verify)
               this.$message({
                 message: "Please verify your email for file upload!",
                 type: 'warning'
@@ -2471,7 +2436,6 @@ If you have more than one model, please the upload the zip file.</p>
           handler(){
             if(this.$route.query.active){
               //调数据
-              console.log("dfsadfa")
               this.getData();
             }
           },
@@ -2480,7 +2444,6 @@ If you have more than one model, please the upload the zip file.</p>
 
         }
 /*        $route (to, from) {
-          console.log(this.$router)
           this.$router.go(0)
         }*/
       },
@@ -2544,6 +2507,12 @@ If you have more than one model, please the upload the zip file.</p>
 </style>
 
 <style scoped>
+  .review-text {
+    float: right;
+    color: #ff9900;
+    font-size: 18px;
+    font-weight: 600;
+  }
 
   .header{
     height: 100px;

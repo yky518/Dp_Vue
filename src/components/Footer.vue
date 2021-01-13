@@ -27,11 +27,12 @@
           <p><el-link class="footer-text">Review</el-link></p>
           <p><el-link class="footer-text">Application</el-link></p>
         </el-col>
-        <el-col :span="6" :offset="6">
+        <el-col :span="6" :offset="9">
           <img src="../assets/images/logo_foot.png"  class="footer-img">
         </el-col>
       </el-row>
-      <p style="text-align: center;color: #8c939d;font-size: 12px;font-family: 'Avenir', Helvetica, Arial, sans-serif">&copy;Copyright2018-2020&nbsp;<strong>DP Potential</strong>. All Rights Reserved</p>
+        <el-link class="footer-text" @click="$router.push({name: 'Help', params:{showHelp: false}})">Send emails to <i>dplibrary@deepmd.net</i> for problems</el-link>
+        <p style="text-align: center;color: #8c939d;font-size: 12px;font-family: 'Avenir', Helvetica, Arial, sans-serif">&copy;Copyright2018-2020&nbsp;<strong>DP Potential</strong>. All Rights Reserved</p>
     </div>
   </div>
 </template>
@@ -73,7 +74,7 @@
   .footer-img {
     height: 100px;
     padding-top: 36px;
-    float:right;
+    /*float:right;*/
   }
   .footer-text{
     font-weight: 400;

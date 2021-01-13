@@ -11,8 +11,8 @@ const store = new Vuex.Store({
     email: '',
     email_verify: '',//1为验证过，0未验证
     create_time: '',
-    // privilege: Cookie.get('privilege')?Cookie.get('privilege'):'',
-    privilege: '',
+    privilege: Cookie.get('privilege')?Cookie.get('privilege'):'',
+    // privilege: '',
 
   },
   mutations: {
@@ -23,6 +23,8 @@ const store = new Vuex.Store({
       state.email_verify = parseInt(data.email_verify)
       state.create_time = data.create_time
       state.privilege = data.privilege
+      Cookie.set('privilege', data.privilege)
+
       // Cookie.set('privilege', data.privilege)
       if(data.privilege === "2") {
         addAdmin()
@@ -38,6 +40,7 @@ const store = new Vuex.Store({
       state.privilege=""
       //    往cookie中写数据
       Cookie.remove('name')
+      Cookie.remove('privilege')
     }
   },
   actions:{
@@ -47,9 +50,6 @@ const store = new Vuex.Store({
     logoutAction(ctx){
       ctx.commit("logout");
     },
-
-
-
 
   }
 
