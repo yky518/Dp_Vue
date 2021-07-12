@@ -138,7 +138,8 @@
         </div>
         <div v-if="showPseudo">
           <p v-for="(item, index) in pseudoList" :key="'vasp' + index">
-            <strong>{{ item.element }}: </strong>{{ item.hash }}
+<!--            <strong>{{ item.element }}: </strong>-->
+            {{ item.hash }}
           </p>
         </div>
 
